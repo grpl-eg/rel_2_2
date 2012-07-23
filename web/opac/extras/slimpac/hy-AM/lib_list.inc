@@ -1,0 +1,10 @@
+<option value='ME'>GRPL</option>
+<option value='GRPL'>&#160;&#160;&#160;Grand Rapids Public Library</option>
+<option value='GRPL-GM'>&#160;&#160;&#160;&#160;&#160;&#160;Madison Square</option>
+<option value='GRPL-GR'>&#160;&#160;&#160;&#160;&#160;&#160;Main</option>
+<option value='GRPL-GO'>&#160;&#160;&#160;&#160;&#160;&#160;Ottawa Hills</option>
+<option value='GRPL-GS'>&#160;&#160;&#160;&#160;&#160;&#160;Seymour</option>
+<option value='GRPL-GC'>&#160;&#160;&#160;&#160;&#160;&#160;VanBelkum</option>
+<option value='GRPL-GN'>&#160;&#160;&#160;&#160;&#160;&#160;West Leonard</option>
+<option value='GRPL-GW'>&#160;&#160;&#160;&#160;&#160;&#160;Westside</option>
+<option value='GRPL-GY'>&#160;&#160;&#160;&#160;&#160;&#160;Yankee Clipper</option>

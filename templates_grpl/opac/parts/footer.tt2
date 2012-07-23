@@ -1,0 +1,110 @@
+[%- 
+    USE CGI = CGI_utf8;
+    hostname = CGI.url({'-base' => 1});
+-%]
+
+
+<div id=footer-branches>
+<table cellpadding=15>
+<tr><td colspan=5><br><img src="http://newwww/wp-content/uploads/2012/05/8urban.png" alt="8 Urban Locations" title="8 Urban Locations"></td></tr>
+<tr>
+<td rowspan=2><img src="http://newwww/wp-content/uploads/2012/05/GRPL-home-logo.png" alt="logo" title="logo"></th>
+
+<td valign=top><a href=http://newwww/main-library/>Main Library</a><br>
+111 Library Street NE | 49503<br>
+616.988.5400<br><br>
+M-Th 9:00 AM - 9:00 PM<br>
+F-Sat 9:00 AM - 6:00 PM<br>
+Sun 1:00 PM - 5:00 PM<br>
+</th>
+
+<td><a href=http://newwww/madison-square-branch/>Madison Square Branch</a><br>
+1201 Madison SE | 49507<br>
+616.988.5411<br><br>
+T-W 10:00 AM - 6:00 PM<br>
+Th 12:00 PM - 8:00 PM<br>
+F-Sat 10:00 AM - 6:00 PM<br>
+</th>
+
+<td><a href=http://newwww/ottawa-hills-branch/>Ottawa Hills Branch</a><br>
+1150 Giddings SE | 49506<br>
+616.988.5412<br><br>
+T 10:00 AM - 6:00 PM<br>
+W 12:00 PM - 8:00 PM<br>
+Th-Sat 10:00 AM - 6:00 PM<br>
+</th>
+
+<td><a href=http://newwww/seymour-branch/>Seymour Branch</a><br>
+2350 Eastern SE | 49507<br>
+616.988.5413<br><br>
+M-T 12:00 PM - 8:00 PM<br>
+W-Th 10:00 AM - 6:00 PM<br>
+Sat 10:00 AM - 6:00 PM<br>
+</th>
+</tr>
+<tr>
+<td>
+<br>
+<a href=http://newwww/van-belkum-branch/>Van Belkum Branch</a><br>
+1563 Plainfield NE | 49505<br>
+616.988.5410<br><br>
+T 10:00 AM - 6:00 PM<br>
+W 12:00 PM - 8:00 PM<br>
+Th-Sat 10:00 AM - 6:00 PM<br>
+</th>
+
+<td>
+<br>
+<a href=http://newwww/west-leonard-branch/>West Leonard Branch</a><br>
+1017 Leonard NW | 49504<br>
+616.988.5416<br><br>
+M-T 12:00 PM - 8:00 PM<br>
+W-Th 10:00 AM - 6:00 PM<br>
+Sat 10:00 AM - 6:00 PM<br>
+</th>
+
+<td>
+<br>
+<a href=http://newwww/west-side-branch/>West Side Branch</a><br>
+713 Bridge NW | 49504<br>
+616.988.5414<br><br>
+T-W 10:00 AM - 6:00 PM<br>
+Th 12:00 PM - 8:00 PM<br>
+F-Sat 10:00 AM - 6:00 PM<br>
+</th>
+
+<td>
+<br>
+<a href=http://newwww/yankee-clipper-branch/>Yankee Clipper Branch</a><br>
+2025 Leonard NE | 49505<br>
+616.988.5415<br><br>
+M-T 12:00 PM - 8:00 PM<br>
+W-Th 10:00 AM - 6:00 PM<br>
+Sat 10:00 AM - 6:00 PM<br>
+</th>
+</td>
+</tr>
+<tr><td height=15>&nbsp;</td></tr></table>
+</div> <!-- #wrapper -->
+
+</div>
+</div>
+<div id="footer-out">
+		
+		
+		<div id="footer" style="width: 1000px; margin: auto;" class="col-full">
+			
+			<div id="copyright" class="col-left">
+							<p><span>Grand Rapids Public Library</span> Copyright &copy; 2012. All Rights Reserved.</p>
+						</div>
+			
+			<div id="credit" class="col-right">
+	        				<p>Powered by <a href="http://www.evergreen-ils.org">Evergreen</a>. Designed by <a href="http://www.woothemes.com"><img src="http://newwww.grpl.org/wp-content/themes/deliciousmagazine/images/woothemes.png" width="74" height="19" alt="Woo Themes" /></a></p>
+						</div>
+			
+		</div><!-- /#footer  -->
+	
+	</div><!-- /#footer-out  -->
+
+</div>
+</div>

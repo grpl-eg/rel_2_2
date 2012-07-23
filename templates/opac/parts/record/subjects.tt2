@@ -1,0 +1,73 @@
+[% 
+    subjects = [
+        {
+            label => l('Subject: '),
+            xpath => '//*[@tag="600" or @tag="610" or @tag="611" or @tag="630" or @tag="650" or @tag="651"]'
+        }, {
+            label => l('Genre: '),
+            xpath => '//*[@tag="655"]|//*[@tag="659"]'
+        }, {
+            label => l('Topic Heading: '),
+            xpath => '//*[@tag="690"]'
+        }, {
+            label => l('Geographic Setting: '),
+            xpath => '//*[@tag="691"]'
+        }, {
+            label => l('Biographical Subject: '),
+            xpath => '//*[@tag="692"]'
+        }, {
+            label => l('Character Attributes: '),
+            xpath => '//*[@tag="693"]'
+        }, {
+            label => l('Setting: '),
+            xpath => '//*[@tag="698"]'
+        }, {
+            label => l('Time Period: '),
+            xpath => '//*[@tag="699"]'
+        }
+    ];
+
+    BLOCK render_subject;
+        xpath = xpath || '//*[starts-with(@tag,"6")]';
+        FOR node IN ctx.marc_xml.findnodes(xpath);
+            all_terms = [];
+            FOR subfield IN node.childNodes;
+                NEXT UNLESS subfield.nodeName == "subfield";
+                code = subfield.getAttribute('code');
+                NEXT UNLESS code.match('[a-z]');
+                IF code.match('[vxyz]'); " &gt; "; END;
+                # at this point, we actually have a partial term to use.
+                single_term = subfield.textContent | html;
+                all_terms.push(subfield.textContent);
+                total_term = all_terms.join(" ").replace('\s+$', '');
+            %]
+<a href="[% mkurl(ctx.opac_root _ '/results', {qtype=>'subject', query=>total_term}, stop_parms); %]">[% single_term %]</a>
+            [%- END;
+            IF all_terms.size; "<br/>"; END;
+        END;
+    END 
+%]
+
+[%  BLOCK render_all_subjects;
+    FOREACH subj IN subjects;
+        content = PROCESS render_subject(xpath=subj.xpath);
+        IF content.match('\S');
+%]
+        <table class='rdetail_subject'>
+            <tbody>
+                <tr>
+                    <td class='rdetail_subject_type'>[% subj.label %]</td>
+                    <td class='rdetail_subject_value' itemprop='keywords'>[% content %]</td>
+                </tr>
+            </tbody>
+        </table>
+        [%- END; %]
+    [%- END; %]
+[%- END %]
+
+[%-  subject_html = PROCESS render_all_subjects;
+    IF subject_html.length > 0;
+%]
+<h2 class='rdetail_related_subjects'>[% l('Search for related items by subject') %]</h2>
+[%- subject_html %]
+[%- END %]

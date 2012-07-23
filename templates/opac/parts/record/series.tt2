@@ -1,0 +1,32 @@
+[% 
+    series_tags = ['440', '490', '800', '810', '811', '830', '694']; 
+    loc = ctx.search_ou;
+%]
+
+[% BLOCK render_series;
+    results = [];
+    FOR tag IN series_tags;
+        FOR node IN ctx.marc_xml.findnodes('//*[@tag="' _ tag _ '"]/*');
+            node_uri = node.textContent | uri;
+            node_html = node.textContent | html;
+            IF !loop.first;
+                results.last = result.last _ '<span>&mdash;</span>';
+            END;
+            results.push('<a href="' _ ctx.opac_root 
+                _ '/results?qtype=series&amp;query=' _ node_uri _ '&amp;loc='
+                _ loc _ '">' _ node_html _ '</a>'
+            );
+        END;
+    END; 
+END;
+%]
+
+[%- series_anchors = PROCESS render_series;
+    IF series_anchors.length > 0; %]
+<h2 class='rdetail_related_series'>[% l('Search for related items by series') %]</h2>
+<ul>
+    [%- FOR entry IN series_anchors %]
+    <li class='rdetail_series_value'>[% entry %]</li>
+    [% END %]
+</ul>
+[%- END %]
