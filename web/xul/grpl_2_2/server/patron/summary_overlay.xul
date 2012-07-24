@@ -41,9 +41,6 @@
         <row id="pdsgr5">
             <description id="patron_library" class="copyable homelib value"/>
         </row>
-        <row id="pdsgr5a">
-            <description id="patron_net_access" class="copyable net_access value"/>
-        </row>
         <row id="pdsgr5aab">
             <description id="patron_account_create_date" class="copyable create_date value"/>
         </row>
@@ -87,6 +84,10 @@
                 value="&staff.patron_display.bills.label;" />
             <description id="patron_bill" class="copyable bill value"/>
         </row>
+<row id='llc_fine_row'>
+        <label class="text_left bill label" value=""/><label id="llc_fine_box" class="bill value"/>
+        <label class="click_link" id="llc_info_link"/>
+</row>
         <row id="pdsgr3">
             <label id="PatronSummaryStatus_checkouts_label" class="copyable text_left items_out label"
                 value="&staff.patron_display.checkouts.label;" />

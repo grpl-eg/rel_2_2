@@ -53,6 +53,7 @@ var cardPerms = {};
 var editCard;
 var prevBillingAddress;
 var prevMailingAddress;
+var comboStores = {};
 
 var dupeUsrname = false;
 var dupeBarcode = false;
@@ -257,6 +258,15 @@ function load() {
 
     dojo.connect(replaceBarcode, 'onClick', replaceCardHandler);
     dojo.connect(allCards, 'onClick', drawAllCards);
+    dojo.connect(clearAlert, 'onClick', clearMessage);
+    dojo.connect(asAdult, 'onClick', RegAsAdult);
+    dojo.connect(plus, 'onClick', addOneMonth);
+    dojo.connect(plus6, 'onClick', addSixMonths);
+    dojo.connect(plus1, 'onClick', addOneYear);
+    dojo.connect(plus3, 'onClick', addThreeYears);
+    dojo.connect(genISM, 'onClick', replaceISMCard);
+
+
     if(patron.isnew()) {
         dojo.addClass(dojo.byId('uedit-all-barcodes'), 'hidden');
     } else if(checkGrpAppPerm(patron.profile())) {
@@ -297,6 +307,69 @@ function load() {
         
     uUpdateContactInvalidators();
     lock_ready = true;
+}
+
+function clearMessage(){
+    var input = findWidget('au', 'alert_message');
+    input.widget.attr('disabled', false).attr('readOnly', false).attr('value', null).focus();
+}
+
+function RegAsAdult(){
+    var input = findWidget('au', 'ident_value2');
+    input.widget.attr('value', 'REGISTERED AS ADULT').focus();
+}
+
+function addOneMonth(){
+    var expire = findWidget('au', 'expire_date');
+    var newDate = new Date();
+    newDate.setDate(newDate.getDate() + 30);
+    expire.widget.attr('value', newDate).focus();
+}
+function addSixMonths(){
+    var expire = findWidget('au', 'expire_date');
+    var newDate = new Date();
+    newDate.setDate(newDate.getDate() + 180);
+    expire.widget.attr('value', newDate).focus();
+}
+function addOneYear(){
+    var expire = findWidget('au', 'expire_date');
+    var newDate = new Date();
+    newDate.setDate(newDate.getDate() + 365);
+    expire.widget.attr('value', newDate).focus();
+}
+function addThreeYears(){
+    var expire = findWidget('au', 'expire_date');
+    var newDate = new Date();
+    newDate.setDate(newDate.getDate() + 1095);
+    expire.widget.attr('value', newDate).focus();
+}
+
+
+function replaceISMCard(){
+    var input = findWidget('ac', 'barcode');
+    var rnd = Math.floor(Math.random()*999999);
+    rnd = '555'+rnd;
+    input.widget.attr('disabled', false).attr('readOnly', true).attr('value', rnd).focus();
+    genISM.attr('disabled', true);
+
+    var profile = findWidget('au', 'profile');
+    profile.widget.attr('value',71);
+
+if (!patron.isnew()){
+    var old = patron.cards().filter(function(c){return (c.id() == patron.card().id())})[0];
+    old.active('f');
+    old.ischanged(1);
+
+    var newc = new fieldmapper.ac();
+    newc.id(uEditCardVirtId--);
+    newc.isnew(1);
+    newc.active('t');
+    patron.card(newc);
+    var t = patron.cards();
+        if (!t) { t = []; }
+        t.push(newc);
+        patron.cards(t);
+}
 }
 
 var permGroups;
@@ -378,6 +451,8 @@ function drawAllCards() {
             row.setAttribute("cardid", card.id());
             row.card = card;
             getByName(row, 'barcode').innerHTML = card.barcode();
+	    getByName(row, 'creator').innerHTML = card.creator();
+	    getByName(row, 'create_date').innerHTML = card.create_date();
             if(cardPerms['UPDATE_PATRON_ACTIVE_CARD']) {
                 row.active_checkbox = new dijit.form.CheckBox({
                     scrollOnFocus:false,
@@ -476,6 +551,17 @@ function generatePasswordHandler() {
 	f.widget.attr('value', patron.passwd());
 	f = findWidget('au', 'passwd2');
 	f.widget.attr('value', patron.passwd());
+//GRPL: if you use the phone number, reset to the phone number
+                            if(uEditUsePhonePw) {
+                                // if configured, use the last four digits of the day phone number as the password
+                                var newVal = findWidget('au', 'day_phone').widget.value;
+                                if(newVal && newVal.length >= 4) {
+                                    var pw1 = findWidget('au', 'passwd').widget;
+                                    var pw2 = findWidget('au', 'passwd2').widget;
+                                    pw1.attr('value', newVal.substring(newVal.length - 4));
+                                    pw2.attr('value', newVal.substring(newVal.length - 4));
+                                }
+                            }
 }
 
 /**
@@ -1069,6 +1155,17 @@ function fleshFMRow(row, fmcls, args) {
         orgLimitPerms : ['UPDATE_USER'],
     };
 
+    // handle comboBox data, create store if necessary
+    if (row.getAttribute('combodata')) {
+
+        var dataName = row.getAttribute('combodata');        
+        if (!comboStores[dataName])
+            comboStores[dataName] = new dojo.data.ItemFileReadStore({data:comboData[dataName]});
+
+        wargs.dijitArgs.store = comboStores[dataName]; 
+        wargs.dijitArgs.searchAttr = comboData[dataName].identifier;
+    }
+
     if(fmfield == 'profile') {
         // fetch profile groups non-async so existing expire_date is
         // not overwritten when the profile groups arrive and update
@@ -1370,9 +1467,38 @@ function attachWidgetEvents(fmcls, fmfield, widget) {
                 return;
 
             case 'first_given_name':
+		dojo.connect(widget.widget, 'onChange',
+                    function(newVal) {
+			uEditDupeSearch('name', newVal);
+			//GRPL name formatting
+			var fname = findWidget('au', 'first_given_name');
+			newVal = newVal.toUpperCase();
+			fname.widget.attr('value',newVal);
+		   }
+		);
+	        return;
+
+            case 'second_given_name':
+                dojo.connect(widget.widget, 'onChange',
+                    function(newVal) {
+                        //GRPL name formatting
+                        var fname = findWidget('au', 'second_given_name');
+                        newVal = newVal.toUpperCase();
+                        fname.widget.attr('value',newVal);
+                    }
+                );
+                return;
+
             case 'family_name':
                 dojo.connect(widget.widget, 'onChange',
-                    function(newVal) { uEditDupeSearch('name', newVal); });
+                    function(newVal) {
+                        uEditDupeSearch('name', newVal);
+                        //GRPL name formatting
+                        var fname = findWidget('au', 'family_name');
+                        newVal = newVal.toUpperCase();
+                        fname.widget.attr('value',newVal);
+                    }
+                );
                 return;
 
             case 'email':
@@ -1436,9 +1562,10 @@ function attachWidgetEvents(fmcls, fmfield, widget) {
     }
 
     if(fmclass = 'aua') {
-
+	switch(fmfield) {
         // map post code to city, state, and county
-        if (fmfield == 'post_code') {
+        //if (fmfield == 'post_code') {
+	  case 'post_code':
             dojo.connect(widget.widget, 'onChange',
                 function(e) { 
                     fieldmapper.standardRequest(
@@ -1458,8 +1585,75 @@ function attachWidgetEvents(fmcls, fmfield, widget) {
                     );
                 }
             );
-        }
+	    return;
 
+            case 'street1':
+                dojo.connect(widget.widget, 'onChange',
+                    function(e) {
+                        //GRPL address formatting
+                        e = e.toUpperCase();
+                        e = e.replace(/\.|\,|\#/g,"");
+                        e = e.replace(/\s+/g," ");
+                        var street1 = findWidget('aua', 'street1');
+                        street1.widget.attr('value',e);
+                        checkForShelter(e);
+                    }
+                );
+                return;
+
+            case 'street2':
+                dojo.connect(widget.widget, 'onChange',
+                    function(e) {
+                        //GRPL address formatting
+                        e = e.toUpperCase();
+                        e = e.replace(/\.|\,|\#/g,"");                                                                                                                 
+                        e = e.replace(/\s+/g," ");                                                                                                                     
+                        var street2 = findWidget('aua', 'street2');
+                        street2.widget.attr('value',e);
+                    }
+                );
+                return;
+
+            case 'city':
+                dojo.connect(widget.widget, 'onChange',
+                    function(e) {
+                        var callback = function(w) { return w._addr == widget._addr; };
+                        var args = {
+                            street1 : findWidget('aua', 'street1', callback).widget.attr('value'),
+                            street2 : findWidget('aua', 'street2', callback).widget.attr('value'),
+                            city : findWidget('aua', 'city', callback).widget.attr('value'),
+                            post_code : findWidget('aua', 'post_code', callback).widget.attr('value')
+                        };
+                        if(args.street1 && args.city && args.post_code)
+                            uEditDupeSearch('address', args);
+                        //GRPL address formatting
+                        var city = findWidget('aua', 'city');
+                        e = e.toUpperCase();
+                        city.widget.attr('value',e);
+                    }
+                );
+                return;
+
+            case 'state':
+                dojo.connect(widget.widget, 'onChange',
+                    function(e) {
+                        var callback = function(w) { return w._addr == widget._addr; };
+                        var args = {
+                            street1 : findWidget('aua', 'street1', callback).widget.attr('value'),
+                            street2 : findWidget('aua', 'street2', callback).widget.attr('value'),
+                            state : findWidget('aua', 'state', callback).widget.attr('value'),
+                            post_code : findWidget('aua', 'post_code', callback).widget.attr('value')
+                        };
+                        if(args.street1 && args.state && args.post_code)
+                            uEditDupeSearch('address', args);
+                        //GRPL address formatting
+                        var state = findWidget('aua', 'state');
+                        e = e.toUpperCase();
+                        state.widget.attr('value',e);
+                    }
+                );
+                return;
+        }
         // duplicate address search
         if (['street1', 'street2', 'city'].indexOf(fmfield) > -1) {
             dojo.connect(widget.widget, 'onChange',
@@ -2181,5 +2375,11 @@ function printable_output() {
     s += '=-=-=-=\r\n';
     return s;
 }
+
+function checkForShelter(str) {
+        var shelterAddresses = /^25 SHELDON|^40 JEFFERSON|^110 HALL|^144 DIVISION|^144 S DIVISION|^200 EASTERN|^220 EASTERN|^225 COMMERCE|^255 DIVISION|^255 S DIVISION|^322 FRONT|^343 DIVISION|^343 S DIVISION|^523 LYON|^701 PROSPECT|^710 FULTON|^710 W FULTON|^750 CHERRY|^761 BRIDGE|^766 7TH|^766 SEVENTH|^801 COLLEGE|^822 CHERRY|^901 EASTERN|^904 SHELDON|^906 DIVISION|^906 S DIVISION|^920 CHERRY|^938 HUMBOLT|^1024 IONIA|^1025 LAFAYETTE|^1215 FULTON|^1215 E FULTON|^1491 DIVISION|^2355 KNAPP|^2440 RICHMOND|^54 DIVISION|^54 S DIVISION|^1706 DIVISION|^1706 S DIVISION/i;
+        if (str.match(shelterAddresses))
+                alert('Is this patron a candidate for a Temporary Residence Card?');
+        }
 
 openils.Util.addOnLoad(load);

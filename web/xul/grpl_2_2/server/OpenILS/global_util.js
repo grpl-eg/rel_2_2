@@ -589,7 +589,10 @@
                 .getService(Components.interfaces.nsIClipboardHelper);
             gClipboardHelper.copyString(text);
             var Strings = $('offlineStrings') || $('commonStrings');
-            alert(Strings.getFormattedString('openils.global_util.clipboard', [text]));
+                 if (text.length > 20)
+                        text = text.substring(0,20) + '...';
+                        updateStatus('statusbarpanel1',text + ' : copied to clipboard');
+ 
         } catch(E) {
             var Strings = $('offlineStrings') || $('commonStrings');
             alert(Strings.getFormattedString('openils.global_util.clipboard.error', [E]));    
@@ -651,3 +654,35 @@
             alert('Error in global_utils.js, widget_prompt(): ' + E);
         }
     }
+
+        function updateStatus(panel,value) {
+           if (!value) return;
+
+                netscape.security.PrivilegeManager.enablePrivilege("UniversalXPConnect");
+
+                var mainWindow = window.QueryInterface(Components.interfaces.nsIInterfaceRequestor)
+                   .getInterface(Components.interfaces.nsIWebNavigation)
+                   .QueryInterface(Components.interfaces.nsIDocShellTreeItem)
+                   .rootTreeItem
+                   .QueryInterface(Components.interfaces.nsIInterfaceRequestor)
+                   .getInterface(Components.interfaces.nsIDOMWindow);
+                if (mainWindow.name != ''){
+                        mainWindow = window.opener.QueryInterface(Components.interfaces.nsIInterfaceRequestor)
+                            .getInterface(Components.interfaces.nsIWebNavigation)
+                            .QueryInterface(Components.interfaces.nsIDocShellTreeItem)
+                            .rootTreeItem
+                            .QueryInterface(Components.interfaces.nsIInterfaceRequestor)
+                            .getInterface(Components.interfaces.nsIDOMWindow);
+
+                     if (mainWindow.document.getElementById(panel))
+                        mainWindow.document.getElementById(panel).setAttribute("label",value);
+                  }else{
+                        mainWindow.document.getElementById(panel).setAttribute("label",value);
+                }
+
+        }
+
+function fetch_llc(bc) {
+        var url = '/cgi-bin/utils/iiipapi.cgi?card='+bc;
+        window.open(url,"LLC_Info","right=20,top=20,width=400,height=600,toolbar=0,resizable=1");
+}

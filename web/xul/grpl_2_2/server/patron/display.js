@@ -555,6 +555,14 @@ patron.display.prototype = {
                             };
                         }
                     ],
+                    'patron_id' : [
+                        ['render'],
+                        function(e) {
+                                return function() {
+                                        e.setAttribute('value', ( obj.patron.id() ? obj.patron.id() + ' ' : '') );
+                                }
+                        }
+                    ],
                     'PatronNavBar' : [
                         ['render'],
                         function(e) {

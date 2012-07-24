@@ -5,6 +5,7 @@
             <button dojoType='dijit.form.Button' jsId='replaceBarcode' scrollOnFocus='false'></button>
             <span id='uedit-dupe-barcode-warning' style='color:red; font-weight:bold' class='hidden'>
             </span>
+	    <span id='ISMbutton'><button dojoType='dijit.form.Button' id='genISM' jsId='genISM' scrollOnFocus='false'>ISM Number</button></span>
         </td>
         <td id='uedit-all-barcodes'>
             <button dojoType='dijit.form.Button' jsId='allCards' scrollOnFocus='false'></button>
@@ -28,28 +29,48 @@
     <tr fmclass='au' fmfield='second_given_name'/>
     <tr fmclass='au' fmfield='prefix'/>
     <tr fmclass='au' fmfield='family_name' required='required'/>
-    <tr fmclass='au' fmfield='suffix'/>
-    <tr fmclass='au' fmfield='alias'/>
+    <tr fmclass='au' fmfield='suffix' combodata='suffixes'/>
+    <tr fmclass='au' fmfield='alias' required='required'/>
     <tr fmclass='au' fmfield='dob'/>
     <tr fmclass='au' fmfield='juvenile'/>
     <tr fmclass='au' fmfield='ident_type' required='required'/>
     <tr fmclass='au' fmfield='ident_value'/>
-    <tr fmclass='au' fmfield='ident_value2'><td/><td id='parentGuardian'></td></tr>
+    <tr fmclass='au' fmfield='ident_value2'><td/><td id='parentGuardian'></td>
+	<td>
+		<span id='AsAdultButton' class='hidden'>
+                	<button dojoType='dijit.form.Button' jsId='asAdult' scrollOnFocus='false'>Reg. As Adult</button>
+		</span>
+        </td>
+    </tr>
+
     <tr fmclass='au' fmfield='email'/>
     <tr fmclass='au' fmfield='day_phone'/>
     <tr fmclass='au' fmfield='evening_phone'/>
     <tr fmclass='au' fmfield='other_phone'/>
     <tr fmclass='au' fmfield='home_ou' required='required'/>
     <tr fmclass='au' fmfield='profile' required='required'/>
-    <tr fmclass='au' fmfield='expire_date' required='required'/>
+    <tr fmclass='au' fmfield='expire_date' required='required'><td/><td/><td/>
+	<td>
+		<span id='expOptions'>
+			<button dojoType='dijit.form.Button' jsId='plus3' scrollOnFocus='false'>+3Y</button>
+			<button dojoType='dijit.form.Button' jsId='plus1' scrollOnFocus='false'>+1Y</button>
+			<button dojoType='dijit.form.Button' jsId='plus6' scrollOnFocus='false'>+6M</button>
+			<button dojoType='dijit.form.Button' jsId='plus' scrollOnFocus='false'>+1M</button>
+		</span>
+	</td>
+    </tr>
     <tr fmclass='au' fmfield='net_access_level' required='required'/>
     <tr fmclass='au' fmfield='active'/>
     <tr fmclass='au' fmfield='barred'/>
     <tr fmclass='au' fmfield='master_account'/>
     <tr fmclass='au' fmfield='claims_returned_count' wclass='dijit.form.NumberSpinner' wconstraints="{min:0,places:0}" wvalue='0'/>
     <tr fmclass='au' fmfield='claims_never_checked_out_count' wclass='dijit.form.NumberSpinner' wconstraints="{min:0,places:0}" wvalue='0'/>
-    <tr fmclass='au' fmfield='alert_message' wclass='dijit.form.Textarea' wstyle='height:5em'/>
-
+    <tr fmclass='au' fmfield='alert_message' wclass='dijit.form.Textarea' wstyle='height:5em'>
+        <td/><td/><td/>
+        <td>
+            <button dojoType='dijit.form.Button' jsId='clearAlert' scrollOnFocus='false'>Clear</button>
+        </td>
+    </tr>
     <tr class='divider hidden' id='uedit-settings-divider'><td colspan='0' id='userSettings'></td></tr>
     <tr class='hidden' id='uedit-user-setting-template'>
         <td/>
@@ -85,7 +106,7 @@
     </tr>
 
 
-    <tr fmclass='aua' fmfield='address_type' type='addr-template' required='required'/>
+    <tr fmclass='aua' fmfield='address_type' type='addr-template' required='required' combodata='address_types'/>
     <tr fmclass='aua' fmfield='post_code' type='addr-template' required='required'/>
     <tr fmclass='aua' fmfield='street1' type='addr-template' required='required'/>
     <tr fmclass='aua' fmfield='street2' type='addr-template' required='show'/>
