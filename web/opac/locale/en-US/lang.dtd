@@ -410,7 +410,7 @@
 <!ENTITY staff.cat.type_of_material.d "Manuscript Notated Music">
 <!ENTITY staff.cat.type_of_material.e "Cartographic Material">
 <!ENTITY staff.cat.type_of_material.f "Manuscript Cartographic Material">
-<!ENTITY staff.cat.type_of_material.g "Video Recording">
+<!ENTITY staff.cat.type_of_material.g "Projected Medium">
 <!ENTITY staff.cat.type_of_material.i "Nonmusical Sound Recording">
 <!ENTITY staff.cat.type_of_material.j "Musical Sound Recording">
 <!ENTITY staff.cat.type_of_material.k "Two-dimensional Nonprojectable Graphic">
@@ -1017,8 +1017,6 @@
 <!ENTITY staff.main.menu.circ.found.label "Mark Found">
 <!ENTITY staff.main.menu.circ.hold_browse.accesskey "B">
 <!ENTITY staff.main.menu.circ.hold_browse.label "Browse Holds Shelf">
-<!ENTITY staff.main.menu.circ.hold_clear.accesskey "">
-<!ENTITY staff.main.menu.circ.hold_clear.label "Clear Shelf-Expired Holds">
 <!ENTITY staff.main.menu.circ.hold_capture.accesskey "H">
 <!ENTITY staff.main.menu.circ.hold_capture.label "Capture Holds">
 <!ENTITY staff.main.menu.circ.hold_pull.accesskey "S">
@@ -3255,8 +3253,6 @@
 <!ENTITY staff.patron.holds_overlay.print_full_pull_list.accesskey "u">
 <!ENTITY staff.patron.holds_overlay.print_alt_pull_list.label "Print Full Pull List (Alternate strategy)">
 <!ENTITY staff.patron.holds_overlay.print_alt_pull_list.accesskey "y">
-<!ENTITY staff.patron.holds_overlay.simplified_pull_list.label "Simplified Pull List Interface">
-<!ENTITY staff.patron.holds_overlay.simplified_pull_list.accesskey "i">
 <!ENTITY staff.patron.holds_overlay.place_hold.label "Place Hold">
 <!ENTITY staff.patron.holds_overlay.place_hold.accesskey "H">
 <!ENTITY staff.patron.holds_overlay.show_cancelled_holds.label "Show Cancelled Holds">
