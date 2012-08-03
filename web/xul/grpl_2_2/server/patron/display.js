@@ -1016,7 +1016,10 @@ patron.display.prototype = {
                             dl_flag_opened = true;
                         }
                         msg += '<dt>';
-                        msg += obj.OpenILS.data.hash.aou[ penalties[i].org_unit() ].shortname() + ' : ' + penalties[i].standing_penalty().label() + '<br/>';
+                        var blist='';
+                        if (penalties[i].standing_penalty().block_list())
+                                blist = '<span style="color:red"> (BLOCKED: '+penalties[i].standing_penalty().block_list()+')</span>';
+                        msg +=  obj.OpenILS.data.hash.aou[ penalties[i].org_unit() ].shortname() + ' : ' + penalties[i].standing_penalty().label() + blist + '<br/>';
                         msg += '</dt><dd>';
                         msg += (penalties[i].note())?penalties[i].note():'';
                         msg += '</dd>';
