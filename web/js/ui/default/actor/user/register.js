@@ -1443,6 +1443,22 @@ function attachWidgetEvents(fmcls, fmfield, widget) {
                 );
                 return;
 
+//GRPL: 3 year max expire limit
+           case 'expire_date':
+                dojo.connect(widget.widget, 'onChange',
+                    function() {
+                        var now = new Date();
+                        var maxExpire = new Date();
+                        maxExpire.setDate(maxExpire.getDate() + 1100);
+                        var expireWidget = findWidget('au', 'expire_date');
+                        if (expireWidget.widget.attr('value') > maxExpire){
+                                alert('Please set expiration date to 3 years or less.');
+                                expireWidget.widget.attr('value',now);
+                        }
+                    }
+                );
+                return;
+
             case 'dob':
                 widget.widget.isValid = function() {
                     return this.attr("value") < new Date();
