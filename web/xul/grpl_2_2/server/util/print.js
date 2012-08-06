@@ -383,6 +383,10 @@ util.print.prototype = {
                 catch(E){s = b; this.error.sdump('D_WARN','string = <' + s + '> error = ' + js2JSON(E)+'\n');}
             try{b = s; s=s.replace(/%TODAY_F%/g,(util.date.formatted_date(new Date(),'%F')));}
                 catch(E){s = b; this.error.sdump('D_WARN','string = <' + s + '> error = ' + js2JSON(E)+'\n');}
+	    var grplDate = new Date();
+            grplDate.setDate(grplDate.getDate()+8);
+            try{b = s; s=s.replace(/%TODAY_PLUS8%/g,(util.date.formatted_date(grplDate,'%m/%d')));}
+                catch(E){s = b; this.error.sdump('D_WARN','string = <' + s + '> error = ' + js2JSON(E)+'\n');}
 
             try {
                 if (typeof params.row != 'undefined') {
