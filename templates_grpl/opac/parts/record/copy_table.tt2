@@ -67,6 +67,13 @@ END;
                 callnum = callnum  _ " " _ callnum_suffix;
             END;
         -%]
+[% allVolHold = 0 %]
+[% PERL %]
+    my $call = $stash->get('callnum');
+    if (($call =~ /\d\sof\s\d/) || ($call =~ /\sv\.\d+(\s|$)/) ){
+       $stash->set('allVolHold',1);
+    }
+[% END %]
         <tr>
             [%- IF serial_holdings %]<td header='copy_header_holding_label' class='rdetail-issue-issue'>
                 [%- copy_info.holding_label | html; -%]
@@ -77,7 +84,12 @@ END;
                 org_name | html
             -%]
             </td>[% END %]
-            <td header='copy_header_callnumber'>[% callnum | html %] (<a href="[% mkurl(ctx.opac_root _ '/sms_cn', {copy_id => copy_info.id}) %]">Text</a>)</td>
+            <td header='copy_header_callnumber'>[% callnum | html %] (<a href="[% mkurl(ctx.opac_root _ '/sms_cn', {copy_id => copy_info.id}) %]">Text</a>)
+	    [% IF allVolHold AND !ctx.is_staff %]
+		<a href="[% mkurl(ctx.opac_root _ '/place_hold',
+                    {hold_target => copy_info.call_number, hold_type => 'V', hold_source_page => mkurl()}) %]">[% l("(Place hold)") %]</a>
+	    [% END %]
+	    </td>
             [%- IF has_parts == 'true' %]
             <td header='copy_header_part'>[% copy_info.part_label | html %]</td>
             [%- END %]
