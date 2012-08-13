@@ -1333,8 +1333,8 @@ sub run_copy_permit_scripts {
     }
 
     # See if this copy has an alert message
-    my $ae = $self->check_copy_alert();
-    push( @allevents, $ae ) if $ae;
+    #my $ae = $self->check_copy_alert();
+    #push( @allevents, $ae ) if $ae;
 
    # uniquify the events
    my %hash = map { ($_->{ilsevent} => $_) } @allevents;
@@ -2631,7 +2631,9 @@ sub do_checkin {
             } else {
                 # copy needs to transit "home", or stick here if it's a floating copy
     
-                if ($U->is_true( $self->copy->floating ) && !$self->remote_hold) { # copy is floating, stick here
+               # if ($U->is_true( $self->copy->floating ) && !$self->remote_hold) { # copy is floating, stick here
+#if ($U->is_true( $self->copy->floating ) && !$self->remote_hold && ($self->circ_lib =~ /11|12|13|14|15|16|17/) ) { # copy is floating, stick here
+if ($U->is_true( $self->copy->floating ) && !$self->remote_hold && ($self->circ_lib =~ /20/) ) { # kludge to shut this down for awhile
                     $self->checkin_changed(1);
                     $self->copy->circ_lib( $self->circ_lib );
                     $self->update_copy;

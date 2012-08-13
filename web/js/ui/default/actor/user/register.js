@@ -724,7 +724,7 @@ function uEditFetchUserSettings(userId) {
     /* fetch any user setting types we need + any that offer opt-in */
     userSettingTypes = pcrud.search('cust', {
         '-or' : [
-            {name:['circ.holds_behind_desk', 'circ.collections.exempt', 'opac.hold_notify', 'opac.default_phone', 'opac.default_pickup_location', 'opac.default_sms_carrier', 'opac.default_sms_notify']}, 
+            {name:['circ.collections.exempt', 'opac.hold_notify', 'opac.default_phone', 'opac.default_pickup_location', 'opac.default_sms_carrier', 'opac.default_sms_notify']}, 
             {name : {
                 'in': {
                     select : {atevdef : ['opt_in_setting']}, 

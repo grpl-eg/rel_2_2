@@ -27,17 +27,16 @@
     <tr fmclass='au' fmfield='passwd2' required='required'><td/><td id='verifyPassword'></td><td/></tr>
     <tr fmclass='au' fmfield='first_given_name' required='required'/>
     <tr fmclass='au' fmfield='second_given_name'/>
-    <tr fmclass='au' fmfield='prefix'/>
     <tr fmclass='au' fmfield='family_name' required='required'/>
     <tr fmclass='au' fmfield='suffix' combodata='suffixes'/>
     <tr fmclass='au' fmfield='alias' required='required'/>
     <tr fmclass='au' fmfield='dob'/>
-    <tr fmclass='au' fmfield='juvenile'/>
-    <tr fmclass='au' fmfield='ident_type' required='required'/>
-    <tr fmclass='au' fmfield='ident_value'/>
-    <tr fmclass='au' fmfield='ident_value2'><td/><td id='parentGuardian'></td>
+    <tr fmclass='au' fmfield='juvenile' class='hidden'/>
+    <tr fmclass='au' fmfield='ident_type' />
+    <tr fmclass='au' fmfield='ident_value' required='required'/>
+    <tr fmclass='au' fmfield='ident_value2'><td/><td id='parentGuardian'></td><td/>
 	<td>
-		<span id='AsAdultButton' class='hidden'>
+		<span id='AsAdultButton' class=''>
                 	<button dojoType='dijit.form.Button' jsId='asAdult' scrollOnFocus='false'>Reg. As Adult</button>
 		</span>
         </td>
@@ -62,9 +61,9 @@
     <tr fmclass='au' fmfield='net_access_level' required='required'/>
     <tr fmclass='au' fmfield='active'/>
     <tr fmclass='au' fmfield='barred'/>
-    <tr fmclass='au' fmfield='master_account'/>
+    <tr fmclass='au' fmfield='master_account' class='hidden'/>
     <tr fmclass='au' fmfield='claims_returned_count' wclass='dijit.form.NumberSpinner' wconstraints="{min:0,places:0}" wvalue='0'/>
-    <tr fmclass='au' fmfield='claims_never_checked_out_count' wclass='dijit.form.NumberSpinner' wconstraints="{min:0,places:0}" wvalue='0'/>
+    <tr fmclass='au' fmfield='claims_never_checked_out_count' class='hidden' wclass='dijit.form.NumberSpinner' wconstraints="{min:0,places:0}" wvalue='0'/>
     <tr fmclass='au' fmfield='alert_message' wclass='dijit.form.Textarea' wstyle='height:5em'>
         <td/><td/><td/>
         <td>
