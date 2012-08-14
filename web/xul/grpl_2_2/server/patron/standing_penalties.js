@@ -148,7 +148,9 @@ function handle_apply_penalty(ev) {
         penalty.usr( xulG.patron.id() );
         penalty.isnew( 1 );
         penalty.standing_penalty( my_xulG.id );
-        penalty.org_unit( ses('ws_ou') );
+        //penalty.org_unit( ses('ws_ou') );
+	// All penalties to the GRPL system
+        penalty.org_unit('9');
         penalty.note( my_xulG.note );
         net.simple_request(
             'FM_AUSP_APPLY', 
