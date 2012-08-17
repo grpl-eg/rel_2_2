@@ -368,6 +368,8 @@ span.dash_divider {
     color: #666;
 }
 
+#rdetail_title { color: #063590; font-weight: bold;}
+
 #rdetail_summary_header {
     margin-left: -12px;
 }
@@ -444,6 +446,7 @@ span#rdetail_hold_counts {
 #rdetail_image_div {
     float: left;
     margin-right: 1em;
+    height: 200px;
 }
 
 .rdetail_aux_utils {
