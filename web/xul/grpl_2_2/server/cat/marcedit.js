@@ -41,6 +41,7 @@ var tag_menu;
 var p;
 var auth_pages = {};
 var show_auth_menu = false;
+var usr_settings;
 
 function $(id) { return document.getElementById(id); }
 
@@ -104,6 +105,7 @@ function xml_escape_unicode ( str ) {
 }
 
 function wrap_long_fields (node) {
+    if (usr_settings && usr_settings['staff_client.marcedit.no_wrap']) return;
     var text_size = dojo.attr(node, 'size');
     var hard_width = 100; 
     if (text_size > hard_width) {
@@ -213,6 +215,10 @@ function my_init() {
             req.open('POST',window.xulG.record.url,false);
             req.send(null);
             window.xulG.record.marc = req.responseText.replace(xmlDeclaration, '');
+	    //GRPL: load the usr_settings, but only if we have an existing record, not a brand new one
+            JSAN.use('util.network');
+            var network = new util.network();
+            usr_settings  = network.simple_request('FM_AUS_RETRIEVE',[ses()]);
         }
 
         xml_record = new XML( window.xulG.record.marc );
