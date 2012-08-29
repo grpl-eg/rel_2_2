@@ -383,6 +383,8 @@ cat.z3950.prototype = {
                                                         tb.setAttribute('mytype','search_class');
                                                         tb.setAttribute('search_class',i);
                                                         row.appendChild(tb);
+							if (i == 'isbn')
+								tb.focus();
                                                         tb.addEventListener('keypress',function(ev) { return obj.handle_enter(ev); },false);
                                                     }
                                                 }
