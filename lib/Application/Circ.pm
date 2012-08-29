@@ -1280,6 +1280,15 @@ sub handle_mark_damaged {
         my $evt2 = OpenILS::Utils::Penalty->calculate_penalties($e, $circ->usr->id, $e->requestor->ws_ou);
         return $evt2 if $evt2;
 
+## Kludge to get us our damaged circ id in a event_output
+        my $force_fire = OpenILS::Event->new('SUCCESS',
+            payload => {
+                circ => $circ,
+                copy => $copy,
+                letter => $U->fire_object_event(103, 'checkout.damaged', $circ, $circ->circ_lib)
+            }
+        );
+
         return undef;
 
     } else {
