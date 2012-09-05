@@ -98,7 +98,13 @@ IF num_uris > 0;
     [%- IF num_uris > 1 %]<ul>[% END %]
     [%- FOR uri IN merged_uris %]
         [%- IF num_uris == 1 %]<p class="rdetail_uri">[% ELSE %]<li class="rdetail_uri">[% END %]
-        <a href="[% uri.href %]">[% uri.link %]</a>[% ' - ' _ uri.note IF uri.note %]
+
+	[%- IF uri.note == 'Finding aid online:' %]
+		<a href="[% uri.href %]">[% uri.note %]</a>
+	[% ELSE %]
+        	<a href="[% uri.href %]">[% uri.link %]</a>[% ' - ' _ uri.note IF uri.note %]
+	[% END %]
+
         [%- IF num_uris == 1 %]</p>[% ELSE %]</li>[% END %]
     [%- END %]
     [%- IF num_uris > 1 %]</ul>[% END %]
@@ -143,7 +149,7 @@ IF num_uris > 0;
     [%- IF attrs.phys_desc %]
     <li id='rdetail_phys_desc'>
         <strong class='rdetail_label'>[% l("Physical Description:") %]</strong>
-        <span class='rdetail_value'>[% attrs.phys_desc | html %]</span>
+        <span class='rdetail_value'>[% attrs.phys_desc | html %] [% attrs.phys_desc %]</span>
     </li>
     [%- END %]
     [%- IF attrs.edition %]

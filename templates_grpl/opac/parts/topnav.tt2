@@ -1,31 +1,26 @@
 [% IF !ctx.is_staff %]
 
-<link rel="stylesheet" type="text/css" href="http://newwww.grpl.org/wp-content/themes/deliciousmagazine/style.css" media="screen" />
-<link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="http://newwww.grpl.org/feed/" />
-<link rel="pingback" href="http://newwww.grpl.org/xmlrpc.php" />
+<link rel="stylesheet" type="text/css" href="/css/deliciousmagazine/style.css" media="screen" />
+<link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="http://www.grpl.org/feed/" />
+<link rel="pingback" href="http://www.grpl.org/xmlrpc.php" />
 
 <link rel='stylesheet' id='jquery-ui-css'  href='http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/base/jquery-ui.css?ver=1.8.17' type='text/css' media='screen' />
-<link rel='stylesheet' id='collapsible-widgets-css'  href='http://newwww.grpl.org/wp-content/plugins/collapsible-widget-area/css/collapsible-widgets.css?ver=0.2a' type='text/css' media='1' />
-<link rel='stylesheet' id='tribe-events-calendar-style-css'  href='http://newwww.grpl.org/wp-content/plugins/the-events-calendar/resources/events.css?ver=3.4.1' type='text/css' media='all' />
-<link rel='stylesheet' id='contact-form-7-css'  href='http://newwww.grpl.org/wp-content/plugins/contact-form-7/includes/css/styles.css?ver=3.2' type='text/css' media='all' />
-<link rel='stylesheet' id='wp-cpl-base-css-css'  href='http://newwww.grpl.org/wp-content/plugins/wp-category-posts-list/static/css/wp-cat-list-theme.css?ver=2.0.3' type='text/css' media='all' />
-<link rel='stylesheet' id='wp_cpl_css_0-css'  href='http://newwww.grpl.org/wp-content/plugins/wp-category-posts-list/static/css/wp-cat-list-light.css?ver=2.0.3' type='text/css' media='all' />
-<link rel='stylesheet' id='wp_cpl_css_1-css'  href='http://newwww.grpl.org/wp-content/plugins/wp-category-posts-list/static/css/wp-cat-list-dark.css?ver=2.0.3' type='text/css' media='all' />
-<link rel='stylesheet' id='wp_cpl_css_2-css'  href='http://newwww.grpl.org/wp-content/plugins/wp-category-posts-list/static/css/wp-cat-list-giant-gold-fish.css?ver=2.0.3' type='text/css' media='all' />
-<link rel='stylesheet' id='wp_cpl_css_3-css'  href='http://newwww.grpl.org/wp-content/plugins/wp-category-posts-list/static/css/wp-cat-list-adrift-in-dreams.css?ver=2.0.3' type='text/css' media='all' />
-<script type='text/javascript' src='http://newwww.grpl.org/wp-includes/js/jquery/jquery.js?ver=1.7.2'></script>
-<script type='text/javascript' src='http://newwww.grpl.org/wp-content/plugins/the-events-calendar/resources/jquery.pjax.js?ver=3.4.1'></script>
-<script type='text/javascript' src='http://newwww.grpl.org/wp-content/plugins/the-events-calendar/resources/events.js?ver=3.4.1'></script>
-<script type='text/javascript' src='http://newwww.grpl.org/wp-content/themes/deliciousmagazine/includes/js/superfish.js?ver=3.4.1'></script>
-<script type='text/javascript' src='http://newwww.grpl.org/wp-content/themes/deliciousmagazine/includes/js/general.js?ver=3.4.1'></script>
-<script type='text/javascript' src='http://newwww.grpl.org/wp-content/themes/deliciousmagazine/includes/js/slides.min.jquery.js?ver=3.4.1'></script>
-<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://newwww.grpl.org/xmlrpc.php?rsd" />
-<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://newwww.grpl.org/wp-includes/wlwmanifest.xml" /> 
+<link rel='stylesheet' id='collapsible-widgets-css'  href='/css/deliciousmagazine/collapsible-widgets.css?ver=0.2a' type='text/css' media='1' />
+<link rel='stylesheet' id='tribe-events-calendar-style-css'  href='/css/deliciousmagazine/events.css?ver=3.4.1' type='text/css' media='all' />
+<link rel='stylesheet' id='contact-form-7-css'  href='/css/deliciousmagazine/styles.css?ver=3.2' type='text/css' media='all' />
+<script type='text/javascript' src='/js/www/jquery.js?ver=1.7.2'></script>
+<script type='text/javascript' src='/js/www/jquery.pjax.js?ver=3.4.1'></script>
+<script type='text/javascript' src='/js/www/events.js?ver=3.4.1'></script>
+<script type='text/javascript' src='/js/www/superfish.js?ver=3.4.1'></script>
+<script type='text/javascript' src='/js/www/general.js?ver=3.4.1'></script>
+<script type='text/javascript' src='/js/www/slides.min.jquery.js?ver=3.4.1'></script>
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://www.grpl.org/xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://www.grpl.org/wp-includes/wlwmanifest.xml" /> 
 <meta name="generator" content="WordPress 3.4.1" />
 
 <!-- All in One SEO Pack 1.6.14.5 by Michael Torbert of Semper Fi Web Design[211,248] -->
 <meta name="keywords" content="yourlibrary,easy" />
-<link rel="canonical" href="http://newwww.grpl.org/" />
+<link rel="canonical" href="http://www.grpl.org/" />
 <!-- /all in one seo pack -->
 
 <!-- Theme version -->
@@ -78,13 +73,13 @@ h1, h2, h3, h4, h5, h6, .post .title, #slide-nav li a span.info .title, .widget 
 		
 	
 <!-- Alt Stylesheet -->
-<link href="http://newwww.grpl.org/wp-content/themes/deliciousmagazine/styles/default.css" rel="stylesheet" type="text/css" />
+<link href="/css/deliciousmagazine/default.css" rel="stylesheet" type="text/css" />
 
 <!-- Woo Shortcodes CSS -->
-<link href="http://newwww.grpl.org/wp-content/themes/deliciousmagazine/functions/css/shortcodes.css" rel="stylesheet" type="text/css" />
+<link href="/css/deliciousmagazine/shortcodes.css" rel="stylesheet" type="text/css" />
 
 <!-- Custom Stylesheet -->
-<link href="http://newwww.grpl.org/wp-content/themes/deliciousmagazine/custom.css" rel="stylesheet" type="text/css" />
+<link href="/css/deliciousmagazine/custom.css" rel="stylesheet" type="text/css" />
 </head>
 
 <div id="container">
@@ -94,52 +89,52 @@ h1, h2, h3, h4, h5, h6, .post .title, #slide-nav li a span.info .title, .widget 
 
 		<div id="logo" class="col-left">
 
-					<a href="http://newwww.grpl.org" title="">
-				<img src="http://newwww.grpl.org/wp-content/uploads/2012/07/GRPL-homepagename1.png" alt="Grand Rapids Public Library" />
+					<a href="http://www.grpl.org" title="">
+				<img src="/css/deliciousmagazine/GRPL-homepagename1.png" alt="Grand Rapids Public Library" />
 			</a>
         
-        			<h1 class="site-title"><a href="http://newwww.grpl.org">Grand Rapids Public Library</a></h1>
+        			<h1 class="site-title"><a href="http://www.grpl.org">Grand Rapids Public Library</a></h1>
         			<span class="site-description"></span>
 
 		</div><!-- /#logo -->
 
 		<div id="navigation" class="col-right">
 
-			<ul id="main-nav" class="nav fl"><li id="menu-item-20" style="a: black;"><a href="http://newwww.grpl.org/about/"><br/>About</a>
+			<ul id="main-nav" class="nav fl"><li id="menu-item-20" style="a: black;"><a href="http://www.grpl.org/about/"><br/>About</a>
 <ul class="sub-menu">
-	<li id="menu-item-74" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-74"><a href="http://newwww.grpl.org/about/using-the-library/">Using the Library</a>
+	<li id="menu-item-74" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-74"><a href="http://www.grpl.org/about/using-the-library/">Using the Library</a>
 	<ul class="sub-menu">
-		<li id="menu-item-78" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-78"><a href="http://newwww.grpl.org/about/using-the-library/getting-a-card/">Getting a Library Card</a></li>
-		<li id="menu-item-79" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-79"><a href="http://newwww.grpl.org/about/using-the-library/getting-an-internet-card/">Getting an Internet Card</a></li>
-		<li id="menu-item-80" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-80"><a href="http://newwww.grpl.org/about/using-the-library/computerservices/">Computer Services</a></li>
-		<li id="menu-item-75" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-75"><a href="http://newwww.grpl.org/about/using-the-library/policies/">Policies</a></li>
-		<li id="menu-item-77" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-77"><a href="http://newwww.grpl.org/about/using-the-library/facility-rental/">Facility Rental</a></li>
-		<li id="menu-item-76" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-76"><a href="http://newwww.grpl.org/about/using-the-library/library-tours/">Library Tours</a></li>
+		<li id="menu-item-78" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-78"><a href="http://www.grpl.org/about/using-the-library/getting-a-card/">Getting a Library Card</a></li>
+		<li id="menu-item-79" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-79"><a href="http://www.grpl.org/about/using-the-library/getting-an-internet-card/">Getting an Internet Card</a></li>
+		<li id="menu-item-80" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-80"><a href="http://www.grpl.org/about/using-the-library/computerservices/">Computer Services</a></li>
+		<li id="menu-item-75" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-75"><a href="http://www.grpl.org/about/using-the-library/policies/">Policies</a></li>
+		<li id="menu-item-77" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-77"><a href="http://www.grpl.org/about/using-the-library/facility-rental/">Facility Rental</a></li>
+		<li id="menu-item-76" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-76"><a href="http://www.grpl.org/about/using-the-library/library-tours/">Library Tours</a></li>
 	</ul>
 </li>
-	<li id="menu-item-119" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-119"><a href="http://newwww.grpl.org/about/about-grpl/">About GRPL</a>
+	<li id="menu-item-119" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-119"><a href="http://www.grpl.org/about/about-grpl/">About GRPL</a>
 	<ul class="sub-menu">
-		<li id="menu-item-121" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-121"><a href="http://newwww.grpl.org/about/about-grpl/board-of-library-commissioners/">Board of Library Commissioners</a></li>
-		<li id="menu-item-123" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-123"><a href="http://newwww.grpl.org/about/about-grpl/mission-vision-values/">Mission, Vision, Values</a></li>
-		<li id="menu-item-120" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-120"><a href="http://newwww.grpl.org/about/about-grpl/annual-report/">Reports to the Community</a></li>
-		<li id="menu-item-122" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-122"><a href="http://newwww.grpl.org/about/about-grpl/history-of-the-library/">History of the Library</a></li>
-		<li id="menu-item-18291" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-18291"><a href="http://newwww.grpl.org/about/about-grpl/community-partners/">Community Partners</a></li>
+		<li id="menu-item-121" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-121"><a href="http://www.grpl.org/about/about-grpl/board-of-library-commissioners/">Board of Library Commissioners</a></li>
+		<li id="menu-item-123" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-123"><a href="http://www.grpl.org/about/about-grpl/mission-vision-values/">Mission, Vision, Values</a></li>
+		<li id="menu-item-120" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-120"><a href="http://www.grpl.org/about/about-grpl/annual-report/">Reports to the Community</a></li>
+		<li id="menu-item-122" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-122"><a href="http://www.grpl.org/about/about-grpl/history-of-the-library/">History of the Library</a></li>
+		<li id="menu-item-18291" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-18291"><a href="http://www.grpl.org/about/about-grpl/community-partners/">Community Partners</a></li>
 	</ul>
 </li>
-	<li id="menu-item-129" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-129"><a href="http://newwww.grpl.org/about/contact-us/">Contact Us</a></li>
-	<li id="menu-item-139" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-139"><a href="http://newwww.grpl.org/about/hours-and-locations/">Hours and Locations</a></li>
-	<li id="menu-item-144" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-144"><a href="http://newwww.grpl.org/about/get-involved/">Get Involved</a>
+	<li id="menu-item-129" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-129"><a href="http://www.grpl.org/about/contact-us/">Contact Us</a></li>
+	<li id="menu-item-139" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-139"><a href="http://www.grpl.org/about/hours-and-locations/">Hours and Locations</a></li>
+	<li id="menu-item-144" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-144"><a href="http://www.grpl.org/about/get-involved/">Get Involved</a>
 	<ul class="sub-menu">
-		<li id="menu-item-140" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-140"><a href="http://newwww.grpl.org/about/get-involved/employment/">Employment</a></li>
-		<li id="menu-item-18305" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-18305"><a href="http://newwww.grpl.org/about/get-involved/be-a-friend/">Be a Friend</a></li>
-		<li id="menu-item-143" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-143"><a href="http://newwww.grpl.org/about/get-involved/donate/">Donate</a></li>
-		<li id="menu-item-142" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-142"><a href="http://newwww.grpl.org/about/get-involved/intern/">Intern</a></li>
-		<li id="menu-item-141" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-141"><a href="http://newwww.grpl.org/about/get-involved/volunteer/">Volunteer</a></li>
+		<li id="menu-item-140" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-140"><a href="http://www.grpl.org/about/get-involved/employment/">Employment</a></li>
+		<li id="menu-item-18305" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-18305"><a href="http://www.grpl.org/about/get-involved/be-a-friend/">Be a Friend</a></li>
+		<li id="menu-item-143" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-143"><a href="http://www.grpl.org/about/get-involved/donate/">Donate</a></li>
+		<li id="menu-item-142" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-142"><a href="http://www.grpl.org/about/get-involved/intern/">Intern</a></li>
+		<li id="menu-item-141" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-141"><a href="http://www.grpl.org/about/get-involved/volunteer/">Volunteer</a></li>
 	</ul>
 </li>
 </ul>
 </li>
-<li id="menu-item-18649" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-18649"><a href="http://newwww.grpl.org/research/"><br/>Research</a>
+<li id="menu-item-18649" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-18649"><a href="http://www.grpl.org/research/"><br/>Research</a>
 <ul class="sub-menu">
 	<li id="menu-item-19091" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-19091"><a href="/localhistory/">Grand Rapids History and Special Collections</a>
 	<ul class="sub-menu">

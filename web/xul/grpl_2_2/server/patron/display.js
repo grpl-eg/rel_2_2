@@ -1010,7 +1010,7 @@ patron.display.prototype = {
                 if (!penalties) { penalties = []; }
                 var dl_flag_opened = false;
                 for (var i = 0; i < penalties.length; i++) {
-                    if (get_bool(penalties[i].standing_penalty().staff_alert())) {
+                   if (penalties[i].standing_penalty().id() != 21){ // go ahead and hide SILENT_NOTEs
                         if (!dl_flag_opened) {
                             msg += '<dl>';
                             dl_flag_opened = true;

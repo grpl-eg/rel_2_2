@@ -365,6 +365,7 @@ if (!patron.isnew()){
     newc.isnew(1);
     newc.active('t');
     patron.card(newc);
+    editCard = newc;
     var t = patron.cards();
         if (!t) { t = []; }
         t.push(newc);
@@ -1968,7 +1969,15 @@ function _uEditSave(doClone) {
             case 'au':
                 if(w._fmfield != 'passwd2')
                     patron[w._fmfield](val);
-                break;
+
+//GRPL: dob kludge
+    if(w._fmfield == 'dob'){
+        var DOB = dojo.date.stamp.fromISOString(val);
+        DOB = dojo.date.add(DOB,'hour',4);
+        DOB = dojo.date.stamp.toISOString(DOB);
+        patron[w._fmfield](DOB);
+    }
+    break;
 
             case 'ac':
                 if(!editCard) editCard = patron.card();

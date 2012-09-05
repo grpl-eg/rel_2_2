@@ -1,6 +1,6 @@
 <td class="login_boxes right_brain" align="center" valign="top" width="291">
 
-    <a href="http://newwww.grpl.org/about/contact-us/"><img 
+    <a href="http://www.grpl.org/about/contact-us/"><img 
         src="[% ctx.media_prefix %]/images/questions.png" alt="[% l('Questions?') %]" style="margin-top:29px;" /></a>
 
     <div style="width:182px;color:black;padding:5px 25px;">

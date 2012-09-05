@@ -1,18 +1,19 @@
+
 <div id="homesearch_main_logo">
     <strong><center>
 
 <div id="slides" class="col-full">
-		
 	<div id="slides_container" class="col-left">
+
 				        
 		<div class="slide">
 
-			<a href="http://newwww.grpl.org/feature2/" title="All locations closed Monday, September 3"><img src="http://newwww.grpl.org/wp-content/uploads/2012/04/banner-close-LaborDay1.png" alt=""  width="652"  height="290"  class="woo-image" /></a>
+			<a href="http://www.grpl.org/write-michigan-is-here/" title="Write Michigan is here!"><img src="http://www.grpl.org/wp-content/uploads/2012/08/banner-WriteMichigan1.png" alt="Write Michigan"  width="652"  height="290"  class="woo-image" /></a>
 			<div class="caption" style="bottom:0">
-				<span class="post-meta featured-category"><a href="http://newwww.grpl.org/category/library-news/" title="View all posts in Library News" rel="category tag">Library News</a></span>
-				<h2 class="title"><a href="http://newwww.grpl.org/feature2/" rel="bookmark" title="All locations closed Monday, September 3">All locations closed Monday, September 3</a></h2>
+				<span class="post-meta featured-category"><a href="http://www.grpl.org/category/event/" title="View all posts in Event" rel="category tag">Event</a></span>
+				<h2 class="title"><a href="http://www.grpl.org/write-michigan-is-here/" rel="bookmark" title="Write Michigan is here!">Write Michigan is here!</a></h2>
 				<div class="entry">
-					<p>The Madison Square, Ottawa Hills, Van Belkum, and West Side Branches are also closed on Saturday, September 1.</p>
+					<p>Are you the next great Michigan writer?</p>
 				</div>
 			</div><!-- /.caption -->
 
@@ -21,12 +22,12 @@
 				        
 		<div class="slide">
 
-			<a title="An Evening with Michael Moore" href="http://newwww.grpl.org/feature1/" ><img src="http://newwww.grpl.org/wp-content/themes/deliciousmagazine/functions/thumb.php?src=http://newwww.grpl.org/wp-content/uploads/2012/04/banner-MichaelMoore.png&amp;w=652&amp;h=290&amp;zc=1&amp;q=90" alt="An Evening with Michael Moore" class="woo-image"  width="652"  height="290"  /></a>
+			<a href="http://www.grpl.org/show-your-library-love/" title="Show your library love!"><img src="http://www.grpl.org/wp-content/uploads/2012/08/banner-heart-fall.png" alt=""  width="652"  height="290"  class="woo-image" /></a>
 			<div class="caption" >
-				<span class="post-meta featured-category"><a href="http://newwww.grpl.org/category/event/" title="View all posts in Event" rel="category tag">Event</a></span>
-				<h2 class="title"><a href="http://newwww.grpl.org/feature1/" rel="bookmark" title="An Evening with Michael Moore">An Evening with Michael Moore</a></h2>
+				<span class="post-meta featured-category"><a href="http://www.grpl.org/category/library-news/" title="View all posts in Library News" rel="category tag">Library News</a></span>
+				<h2 class="title"><a href="http://www.grpl.org/show-your-library-love/" rel="bookmark" title="Show your library love!">Show your library love!</a></h2>
 				<div class="entry">
-					<p>Thursday, July 26 at 7:00 pm at Fountain Street Church.</p>
+					<p>Show your library love by making a donation to the Grand Rapids Public Library Foundation!</p>
 				</div>
 			</div><!-- /.caption -->
 
@@ -35,10 +36,10 @@
 				        
 		<div class="slide">
 
-			<a title="Your library is about to get better!" href="http://newwww.grpl.org/furniture-collection/" ><img src="http://newwww.grpl.org/wp-content/themes/deliciousmagazine/functions/thumb.php?src=http://newwww.grpl.org/wp-content/uploads/2012/04/banner-technology.png&amp;w=652&amp;h=290&amp;zc=1&amp;q=90" alt="Your library is about to get better!" class="woo-image"  width="652"  height="290"  /></a>
+			<a href="http://www.grpl.org/your-library-is-about-to-get-better/" title="Your library is about to get better!"><img src="http://www.grpl.org/wp-content/uploads/2012/04/banner-technology.png" alt="Your library is about to get better!"  width="652"  height="290"  class="woo-image" /></a>
 			<div class="caption" >
-				<span class="post-meta featured-category"><a href="http://newwww.grpl.org/category/library-news/" title="View all posts in Library News" rel="category tag">Library News</a></span>
-				<h2 class="title"><a href="http://newwww.grpl.org/furniture-collection/" rel="bookmark" title="Your library is about to get better!">Your library is about to get better!</a></h2>
+				<span class="post-meta featured-category"><a href="http://www.grpl.org/category/library-news/" title="View all posts in Library News" rel="category tag">Library News</a></span>
+				<h2 class="title"><a href="http://www.grpl.org/your-library-is-about-to-get-better/" rel="bookmark" title="Your library is about to get better!">Your library is about to get better!</a></h2>
 				<div class="entry">
 					<p>Technology upgrades are coming to your library. Find out what this means for you!</p>
 				</div>
@@ -46,11 +47,33 @@
 
 		</div><!-- /.slide -->
 
-		
-	</div><!-- /#slides_container -->
+		    <script type="text/javascript">
+    // <![CDATA[
+        var disqus_shortname = 'theatrium';
+        (function () {
+            var nodes = document.getElementsByTagName('span');
+            for (var i = 0, url; i < nodes.length; i++) {
+                if (nodes[i].className.indexOf('dsq-postid') != -1) {
+                    nodes[i].parentNode.setAttribute('data-disqus-identifier', nodes[i].getAttribute('rel'));
+                    url = nodes[i].parentNode.href.split('#', 1);
+                    if (url.length == 1) { url = url[0]; }
+                    else { url = url[1]; }
+                    nodes[i].parentNode.href = url + '#disqus_thread';
+                }
+            }
+            var s = document.createElement('script'); s.async = true;
+            s.type = 'text/javascript';
+                        s.src = 'http' + '://' + 'disqus.com/forums/' + disqus_shortname + '/count.js';
+            (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+        }());
+    //]]>
+    </script>
 
-     
-</div><!-- /#slides --> 
+
+</div><!-- /#slides_container -->
+
+
+</div><!-- /#slides -->
 
     </center></strong>
 </div>

@@ -10,7 +10,6 @@
             <div class="common-full-pad"></div>
             <div>
                 <p>
-                    [% IF ctx.event != -1 %]
                     <br/>
                     [% IF ctx.sms_notify %]
                     <h1>Your message has been sent!</h1>
@@ -37,9 +36,6 @@
                             </blockquote>
                         </form>
                     </blockquote>
-                    [% END %]
-                    [% ELSE %]
-                    <span>SMS not enabled for this site.</span>
                     [% END %]
                 </p>
             </div>

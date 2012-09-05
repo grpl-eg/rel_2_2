@@ -29,10 +29,10 @@
     <tr fmclass='au' fmfield='second_given_name'/>
     <tr fmclass='au' fmfield='family_name' required='required'/>
     <tr fmclass='au' fmfield='suffix' combodata='suffixes'/>
-    <tr fmclass='au' fmfield='alias' required='required'/>
+    <tr fmclass='au' fmfield='alias' class='hidden'/>
     <tr fmclass='au' fmfield='dob'/>
     <tr fmclass='au' fmfield='juvenile' class='hidden'/>
-    <tr fmclass='au' fmfield='ident_type' />
+    <tr fmclass='au' fmfield='ident_type' required='required'/>
     <tr fmclass='au' fmfield='ident_value' required='required'/>
     <tr fmclass='au' fmfield='ident_value2'><td/><td id='parentGuardian'></td><td/>
 	<td>
@@ -58,8 +58,8 @@
 		</span>
 	</td>
     </tr>
-    <tr fmclass='au' fmfield='net_access_level' required='required'/>
-    <tr fmclass='au' fmfield='active'/>
+    <tr fmclass='au' fmfield='net_access_level' class='hidden'/>
+    <tr fmclass='au' fmfield='active' class='hidden'/>
     <tr fmclass='au' fmfield='barred'/>
     <tr fmclass='au' fmfield='master_account' class='hidden'/>
     <tr fmclass='au' fmfield='claims_returned_count' wclass='dijit.form.NumberSpinner' wconstraints="{min:0,places:0}" wvalue='0'/>
