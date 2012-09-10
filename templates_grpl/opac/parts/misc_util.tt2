@@ -63,7 +63,7 @@
         FOR sub IN xml.findnodes('//*[@tag="520"]/*[@code="a"]');
             args.summaries.push(sub.textContent);
         END;
-        args.summary = (args.summary.size) ? args.summary.0 : '';
+        args.summary = (args.summaries.size) ? args.summaries.0 : '';
 
         args.editions = [];
         ed_hunt = xml.findnodes('//*[@tag="250"]/*[@code="a"]') &&
@@ -76,11 +76,11 @@
 
         phys_content = [];
         FOR sub IN xml.findnodes(
-            '//*[@tag="300"]/*[@code="a" or @code="b" or @code="c" or @code="e"]'
+            '//*[@tag="300"]/*[@code="a" or @code="b" or @code="c" or @code="e" or @code="f"]'
         );
             phys_content.push(sub.textContent);
         END;
-        args.phys_desc = phys_content.join("");
+        args.phys_desc = phys_content.join(" ");
 
         args.contents_list = [];
         FOR sub IN xml.findnodes('//*[@tag="505"]');
@@ -99,6 +99,14 @@
 
         # clean up the ISBN
         args.isbn_clean = args.isbns.0.replace('\ .*', '');
+
+	grpl_location = [];
+        FOR sub IN xml.findnodes(
+            '//*[@tag="852"]/*[@code="b" or @code="c"]'
+        );
+            grpl_location.push(sub.textContent);
+        END;
+        args.grpl_location = grpl_location.join(" ");
 
         # Extract the 856 URLs that are not otherwise represented by asset.uri's
         args.online_res = [];
