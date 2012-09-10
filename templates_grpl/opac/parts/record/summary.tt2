@@ -89,6 +89,7 @@
 [%- END %]
     </div>    
 [%- END %]
+[%- archMat = 0 %]
 [%- merged_uris = args.uris.merge(args.online_res);
 num_uris = merged_uris.size;
 IF num_uris > 0;
@@ -100,9 +101,12 @@ IF num_uris > 0;
         [%- IF num_uris == 1 %]<p class="rdetail_uri">[% ELSE %]<li class="rdetail_uri">[% END %]
 
 	[%- IF uri.note == 'Finding aid online:' %]
-		<a href="[% uri.href %]">[% uri.note %]</a>
-	[% ELSE %]
-        	<a href="[% uri.href %]">[% uri.link %]</a>[% ' - ' _ uri.note IF uri.note %]
+		<a href="[% uri.href %]">Archival [% uri.note %]</a>
+		[%- archMat = 1 %]
+	  [% ELSIF (matches = uri.href.match(overdrive)) %]
+		<a href="[% uri.href %]">Download From Overdrive</a>
+	  [% ELSE %]
+        	<a href="[% uri.href %]">CLick for Online Resource</a>
 	[% END %]
 
         [%- IF num_uris == 1 %]</p>[% ELSE %]</li>[% END %]
@@ -110,6 +114,29 @@ IF num_uris > 0;
     [%- IF num_uris > 1 %]</ul>[% END %]
 </div>
 [%- END %]
+<div class='rdetail_grpl_display'><br>
+[%- IF args.summary %]
+        <strong class='rdetail_label'>[% l("Summary:") %]</strong>
+        <span class='rdetail_value'>[% args.summary | html %] </span>
+[%- END %]
+<br>
+[%- IF attrs.format_label %]
+   <strong class='rdetail_label'>[% l("Format:") %]</strong>
+   [% IF archMat %] 
+	<span class='rdetail_value'>Archival Material</span>
+   [% ELSE %]
+        <span class='rdetail_value'>[% attrs.format_label| html %] </span>
+   [% END %]
+[%- END %]
+[%- IF args.grpl_location %]
+   <br><strong class='rdetail_label'>[% l("Location:") %]</strong>
+   <span class='rdetail_value'>[% args.grpl_location | html %] </span>
+[%- END %]
+</div>
+[%# lets have a look at that context %]
+	[%# USE Dumper(Indent=2) %]
+	[%# Dumper.dump_html(ctx) %]
+
 [%- # Hold/copy summary
     IF ctx.copy_summary.0.count
 %]

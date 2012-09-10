@@ -190,6 +190,22 @@ sub _get_search_limit {
     return 10; # default
 }
 
+sub _get_expand_pref {
+    my $self = shift;
+
+    if($self->editor->requestor) {
+        $self->timelog("Checking for opac.expand_details preference");
+        # See if the user has a hit count preference
+        my $lset = $self->editor->search_actor_user_setting({
+            usr => $self->editor->requestor->id,
+            name => 'opac.expand_details'
+        })->[0];
+        $self->timelog("Got opac.expand_details preference");
+        return OpenSRF::Utils::JSON->JSON2perl($lset->value) if $lset;
+    }
+}
+
+
 sub tag_circed_items {
     my $self = shift;
     my $e = $self->editor;
@@ -390,6 +406,8 @@ sub load_rresults {
 
         # Stuff these into the TT context so that templates can use them in redrawing forms
         $ctx->{processed_search_query} = $query;
+
+	$ctx->{expand_details} = $self->_get_expand_pref;
 
         $query .= " $_" for @facets;
 

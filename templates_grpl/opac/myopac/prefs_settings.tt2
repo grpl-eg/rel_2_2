@@ -77,6 +77,15 @@
                             [% IF ctx.user_setting_map.$setting; %] checked='checked' [% END %]/>
                     </td>
                 </tr>
+                <tr>
+                    <td>[% l('Always show more details?') %]</td>
+                    <td>
+                        [% setting = 'opac.expand_details' %]
+                        <input name='[% setting %]' type="checkbox"
+                            [% IF ctx.user_setting_map.$setting; %] checked='checked' [% END %]/>
+                    </td>
+                </tr>
+
 
                 <!--
                 <tr>
