@@ -17,7 +17,7 @@
     </div>
     <div style="font-weight: bold">[%- l('Search ');
         INCLUDE "opac/parts/coded_value_selector.tt2"
-            attr=["mattype", "item_type"] none_ok=1 none_label=l('All Formats');
+            attr=["mattype", "format"] none_ok=1 none_label=l('All Formats');
             l(' for ');
         %]
         <span class='search_box_wrapper'>
