@@ -103,10 +103,10 @@ IF num_uris > 0;
 	[%- IF uri.note == 'Finding aid online:' %]
 		<a href="[% uri.href %]">Archival [% uri.note %]</a>
 		[%- archMat = 1 %]
-	  [% ELSIF (matches = uri.href.match(overdrive)) %]
+	  [% ELSIF (uri.href.match('overdrive')) %]
 		<a href="[% uri.href %]">Download From Overdrive</a>
 	  [% ELSE %]
-        	<a href="[% uri.href %]">CLick for Online Resource</a>
+        	<a href="[% uri.href %]">Click for Online Resource</a>
 	[% END %]
 
         [%- IF num_uris == 1 %]</p>[% ELSE %]</li>[% END %]
