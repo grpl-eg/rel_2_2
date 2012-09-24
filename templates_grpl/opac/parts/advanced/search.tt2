@@ -53,10 +53,15 @@
         </td>
     </tr>
     <tr>
-        <td colspan="3">
+        <td colspan="4">
             <table cellpadding='10' cellspacing='0' border='0'>
                 <tbody>
                     <tr>
+            <td valign='top'>
+                <strong>[% l("Lit Form") %]</strong><br />
+                [%  INCLUDE "opac/parts/coded_value_selector.tt2"
+                        attr=["mattype", "lit_form"] multiple="multiple" size="2" %]
+            </td>
             <td valign='top'>
             <strong>[% l("Sort Results") %]</strong>
               <table class='adv_global_filter_sort'>
