@@ -29,8 +29,8 @@ sub _prepare_biblio_search_basics {
         # the weird things Real Users will surely type in.
         $contains = "" unless defined $contains; # silence warning
         if ($contains eq 'nocontains') {
-            $query =~ s/"//g;
-            $query = ('"' . $query . '"') if index $query, ' ';
+        #    $query =~ s/"//g;
+        #    $query = ('"' . $query . '"') if index $query, ' ';
             $query = '-' . $query;
         } elsif ($contains eq 'phrase') {
             $query =~ s/"//g;
