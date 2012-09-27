@@ -29,7 +29,7 @@
     <tr fmclass='au' fmfield='second_given_name'/>
     <tr fmclass='au' fmfield='family_name' required='required'/>
     <tr fmclass='au' fmfield='suffix' combodata='suffixes'/>
-    <tr fmclass='au' fmfield='alias' class='hidden'/>
+    <tr fmclass='au' fmfield='alias'/>
     <tr fmclass='au' fmfield='dob'/>
     <tr fmclass='au' fmfield='juvenile' class='hidden'/>
     <tr fmclass='au' fmfield='ident_type' required='required'/>
