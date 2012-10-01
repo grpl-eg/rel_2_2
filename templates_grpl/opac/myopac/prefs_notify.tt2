@@ -3,6 +3,17 @@
     myopac_page = "prefs";
     prefs_page = 'notify' %]
 
+<script language="JavaScript">
+function onlyNumbers(evt)
+{
+         var charCode = (evt.which) ? evt.which : event.keyCode
+         if (charCode > 31 && (charCode < 48 || charCode > 57))
+            return false;
+
+         return true;
+}
+</script>
+
 <form method='POST'>
     [% setting = 'opac.hold_notify' %]
     <input name='[% setting %]' type="hidden"
@@ -60,7 +71,7 @@
                 <td>[% l('Default Mobile Number') %]</td>
                 <td>
                     [% setting = 'opac.default_sms_notify' %]
-                    <input name='[% setting %]' type="text"
+                    <input name='[% setting %]' type="text" maxlength="10" onkeypress="return onlyNumbers(event);"
                         [% IF ctx.user_setting_map.$setting; %] value='[% ctx.user_setting_map.$setting | html %]' [% END %]/>
                     [% l('Hint: use the full 10 digits of your phone #, no spaces, no dashes'); %]
                 </td>
