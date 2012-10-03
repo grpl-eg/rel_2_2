@@ -17,7 +17,15 @@ function runEvt(scope, name) {
 function staff_hold_usr_input_disabler(input) {
     document.getElementById("hold_usr_input").disabled =
         Boolean(Number(input.value));
+    document.getElementById('staff_privacy').style.visibility='visible';
     staff_hold_usr_barcode_changed();
+}
+function no_hold_submit(event) {
+    if (event.which == 13) {
+        staff_hold_usr_barcode_changed();
+        return false;
+    }
+    return true;
 }
 var cur_hold_barcode = undefined;
 function staff_hold_usr_barcode_changed(isload) {
@@ -29,6 +37,7 @@ function staff_hold_usr_barcode_changed(isload) {
             if(!isload) {
                 barcode = document.getElementById('hold_usr_input').value;
                 only_settings = false;
+		document.getElementById('staff_privacy').style.visibility='visible';
             }
             if(barcode && barcode != '' && !document.getElementById('hold_usr_is_requestor_not').checked)
                 document.getElementById('hold_usr_is_requestor_not').checked = 'checked';
