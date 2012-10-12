@@ -83,6 +83,9 @@
                         </div>
                     </div>[% l("Username") %]
                 </td>
+<div id='alias_note' style='color: red; font-family: arial,helvetica; border: solid 1px;float:right;margin-top: 90px;'>
+   Placing a hold using an alternate hold name is now available.<br/>Please see staff at Customer Service desk or call 616.988.5400.
+</div>
                 <td class='light_border'>[% ctx.user.usrname | html %]</td>
                 [% IF ctx.username_change_disallowed %]
                 <td></td>
