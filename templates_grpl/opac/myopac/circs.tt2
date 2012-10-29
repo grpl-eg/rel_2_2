@@ -2,6 +2,25 @@
     PROCESS "opac/parts/misc_util.tt2";
     WRAPPER "opac/parts/myopac/base.tt2";
     myopac_page = "circs"  %]
+
+<script language='javascript'>
+
+function selectDueSoon() {
+   var threeDays = new Date();
+   threeDays.setDate(threeDays.getDate() + 3);
+   var due=document.getElementsByName('due_date');
+   var inputs=document.getElementsByName('circ'); 
+   for (i = 0; i < inputs.length; i++) { 
+	if (undefined != due[i]){
+		var dueDate = new Date(due[i].innerHTML);
+		if (inputs[i].name == 'circ' && !inputs[i].disabled && dueDate < threeDays) {
+			inputs[i].checked = "checked";
+		}
+	}
+   }
+}
+</script>
+
 <div id='myopac_checked_div'>
 
     <div id="acct_checked_tabs">
@@ -50,8 +69,9 @@
                         value="[% l('Go') %]"
                         alt="[% l('Go') %]" title="[% l('Go') %]"
                         class="opac-button" />
+		    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" id="due_soon" onclick="selectDueSoon();"> Select items due within 3 days 
                 </td>
-                <td style="padding-left:5px;">
+                <td style="padding-left:5px;" class='hidden'>
                     <a href="#"><img alt="Renewing Help"
                         src="[% ctx.media_prefix %]/images/question-mark.png" /></a>
                 </td>
