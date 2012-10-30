@@ -111,5 +111,7 @@
         <input type="reset" name="cancel" onclick="javascript:history.go(-1);"
             value="[% l('Cancel') %]" id="holds_cancel" class="opac-button" />
     </form>
+<br/>
+Placing a hold using an alternate hold name is now available. Please see staff or call 616.988.5400. <br/>
 </div>
 
