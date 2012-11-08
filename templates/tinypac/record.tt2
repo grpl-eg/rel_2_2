@@ -1,0 +1,12 @@
+[%  PROCESS "tinypac/parts/header.tt2";
+    WRAPPER "tinypac/base.tt2";
+    ctx.page_title = l("Record Detail") %]
+    <br class="clear-both" />
+    <div id="content-wrapper" class="content-wrapper-record-page">
+        <div id="[% ctx.staff_saved_search_size ? 'main-content-after-bar' : 'main-content' %]">
+            [% INCLUDE "tinypac/parts/record/body.tt2" %]
+            <div class="common-full-pad"></div>
+        </div>
+        <br class="clear-both" />
+    </div>
+[% END %]

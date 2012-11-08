@@ -1,0 +1,82 @@
+<!-- JS imports, etc.  -->
+<script type="text/javascript" src="[% ctx.media_prefix %]/js/ui/default/opac/simple.js"></script>
+
+[%- IF ctx.is_staff %]
+<script type="text/javascript" src="[% ctx.media_prefix %]/js/ui/default/opac/staff.js"></script>
+    [% IF ctx.page == 'record' %]
+        [% IF ctx.search_result_index >= 0 %]
+        <script>
+            rdetail_next_prev_actions(
+                "[% ctx.search_result_index %]",
+                "[% ctx.hit_count %]",
+                "[% ctx.prev_rec_url || '' %]",
+                "[% ctx.next_rec_url || '' %]",
+                "[% mkurl(ctx.first_search_record, {page => 0}) %]",
+                "[% mkurl(ctx.opac_root _ '/results', {find_last => 1, page => POSIX.floor(ctx.hit_count / ctx.page_size)}) %]",
+                "[% mkurl(ctx.opac_root _ '/results', {}, ['expand','cnoffset']) %]"
+            );
+        </script>
+        [% END %]
+        [% IF ctx.mfhd_summaries.size %]
+        <script>
+            window.mfhdDetails = [
+                [% FOR summary IN ctx.mfhd_summaries %]
+                {
+                    'id' : '[% summary.sre_id %]', 
+                    'label' : '[% summary.location %]',
+                    'entryNum' : '[% loop.index %]',
+                    'owning_lib' : '[% summary.owning_lib %]'
+                },
+                [% END %]
+            ];
+        </script>
+        [% END %]
+    [% END %]
+[%- END %]
+
+[%- IF ENV.OILS_NOVELIST_URL AND ctx.page == 'record';
+    url = ENV.OILS_NOVELIST_URL;
+    IF CGI.https; url = url.replace('^http:', 'https:'); END; %]
+<script type='text/javascript' id='EIT' src='[% url %]'></script>
+[%- END %]
+[%- IF want_dojo; -%]
+<script type="text/javascript">
+     var djConfig = {
+         locale: "[% ctx.locale | lower | replace('_', '-') %]",
+         parseOnLoad: true,
+         isDebug: false
+     }, lang, bidi;
+</script>
+<script type="text/javascript" src="[% ctx.media_prefix %]/js/dojo/dojo/dojo.js?[% ctx.eg_cache_hash %]"></script>
+<script type="text/javascript" src="[% ctx.media_prefix %]/js/dojo/dojo/openils_dojo.js?[% ctx.eg_cache_hash %]"></script>
+
+[%- # So the following works in Mozilla and Chrome, but not in IE8.
+    # Seems like it /should/ work anywhere, though, and obviate the
+    # next three script tags: %]
+<!-- <script type="text/javascript" src="[% ctx.media_prefix %]/js/dojo/DojoSRF.js?[% ctx.eg_cache_hash %]"></script> -->
+
+<script type="text/javascript" src="[% ctx.media_prefix %]/js/dojo/opensrf/opensrf.js?[% ctx.eg_cache_hash %]"></script>
+<script type="text/javascript" src="[% ctx.media_prefix %]/js/dojo/opensrf/opensrf_xhr.js?[% ctx.eg_cache_hash %]"></script>
+<script type="text/javascript" src="[% ctx.media_prefix %]/js/dojo/opensrf/JSON_v1.js?[% ctx.eg_cache_hash %]"></script>
+
+[% IF use_autosuggest.enabled == "t"; %]
+<script type="text/javascript">
+    dojo.require("openils.widget.AutoSuggest");
+
+    /* Set focus, and place the cursor at the end of the input string */
+    dojo.addOnLoad(function() {
+        dijit.byId('search_box').focus();
+
+        var sb_value = dijit.byId('search_box').value;
+        /* Dojo won't trigger a change if the value doesn't change */
+        if (sb_value) {
+            dijit.byId('search_box').setValue(sb_value + ' ');
+            dijit.byId('search_box').setValue(sb_value);
+        }
+    });
+</script>
+[% END; # use_autosuggest %]
+
+[% INCLUDE "opac/parts/acjs.tt2" IF ctx.page == 'record' %]
+
+[%- END; # want_dojo -%]

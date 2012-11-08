@@ -1,0 +1,18 @@
+[%  PROCESS "tinypac/parts/header.tt2";
+    WRAPPER "tinypac/base.tt2";
+    INCLUDE "tinypac/parts/misc_util.tt2";
+    ctx.page_title = l("Home") %]
+    <div id="search-wrapper">
+        [% INCLUDE "tinypac/parts/searchbar.tt2" %]
+    </div>
+    <div id="content-wrapper">
+        <div id="main-content-home">
+            <div class="common-full-pad"></div>
+        </div>
+    </div>
+
+<br><br><br>
+    <form method="GET" action="/eg/tinypac/myopac/main"><input type=submit value="My Account"></form>
+<br><br><br>
+    <a href=/eg/opac/home>Standard Catalog</a>
+[% END %]

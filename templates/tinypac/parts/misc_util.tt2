@@ -1,0 +1,270 @@
+[% 
+    # Extract MARC fields from XML
+    #   get_marc_attrs( { marc_xml => doc } )
+    BLOCK get_marc_attrs;
+        xml = args.marc_xml;
+
+        # Map item types to schema.org types; impedance mismatch :(
+        args.schema.itemtype = {};
+        schema_typemap = {};
+        schema_typemap.a = 'http://schema.org/Book';
+        schema_typemap.j = 'http://schema.org/MusicRecording';
+
+        args.isbns = [];
+        FOR isbn IN xml.findnodes('//*[@tag="020"]/*[@code="a"]');
+            args.isbns.push(isbn.textContent);
+        END;
+
+        args.upcs = [];
+        FOR upc IN xml.findnodes('//*[@tag="024"]/*[@code="a"]');
+            args.upcs.push(upc.textContent);
+        END;
+        args.upc = args.upcs.0; # use first UPC as the default
+
+        args.issns = [];
+        FOR sub IN xml.findnodes('//*[@tag="022"]/*[@code="a"]');
+            args.issns.push(sub.textContent);
+        END;
+        args.issn = (args.issns.size) ? args.issn.0 : '';
+
+        args.authors = [];
+        FOR sub IN xml.findnodes('//*[@tag="100"]/*[@code="a"]');
+            args.authors.push(sub.textContent);
+        END;
+        args.author = (args.authors.size) ? args.authors.0 : '';
+
+        # Include subfields 'abnp' to generate a more comprehensive title display in search results
+        titresults = xml.findnodes('//*[@tag="245"]/*[@code="a" or @code="b" or @code="n" or @code="p"]');
+        titresults_content = [];
+            FOR sub IN titresults; titresults_content.push(sub.textContent); END;
+        args.title = titresults_content.join(" ");
+        # Avoid ugly trailing syntax on brief titles
+        args.title = args.title | replace('[:;/]$', '');
+
+        # Provide correct spacing between the subfields
+        titsubs = xml.findnodes('//*[@tag="245"]/*[@code]');
+        titsubs_content = [];
+            FOR sub IN titsubs; titsubs_content.push(sub.textContent); END;
+        args.title_extended = titsubs_content.join(" ");
+
+        args.publishers = [];
+        FOR sub IN xml.findnodes('//*[@tag="260"]/*[@code="b"]');
+            args.publishers.push(sub.textContent);
+        END;
+        args.publisher = (args.publishers.size) ? args.publishers.0 : '';
+
+        args.pubdates = [];
+        FOR sub IN xml.findnodes('//*[@tag="260"]/*[@code="c"]');
+            args.pubdates.push(sub.textContent);
+        END;
+        args.pubdate = (args.pubdates.size) ? args.pubdates.0 : '';
+
+        args.summaries = [];
+        FOR sub IN xml.findnodes('//*[@tag="520"]/*[@code="a"]');
+            args.summaries.push(sub.textContent);
+        END;
+        args.summary = (args.summary.size) ? args.summary.0 : '';
+
+        args.editions = [];
+        ed_hunt = xml.findnodes('//*[@tag="250"]/*[@code="a"]') &&
+            xml.findnodes('//*[@tag="534"]/*[@code="b"]') &&
+            xml.findnodes('//*[@tag="775"]/*[@code="b"]');
+        FOR sub IN ed_hunt;
+            args.editions.push(sub.textContent);
+        END;
+        args.edition = (args.editions.size) ? args.editions.0 : '';
+
+        phys_content = [];
+        FOR sub IN xml.findnodes(
+            '//*[@tag="300"]/*[@code="a" or @code="b" or @code="c" or @code="e"]'
+        );
+            phys_content.push(sub.textContent);
+        END;
+        args.phys_desc = phys_content.join(" ");
+
+        args.contents_list = [];
+        FOR sub IN xml.findnodes('//*[@tag="505"]');
+            args.contents_list.push(sub.textContent);
+        END;
+        args.contents = args.contents_list.join(" ");
+        args.content = (args.contents.size) ? args.contents.0 : '';
+
+        # MARC Callnumber
+        args.marc_cns = [];
+        FOR sub IN xml.findnodes('//*[@tag="092" or @tag="099"]/*');
+            args.marc_cns.push(sub.textContent);
+        END;
+        args.marc_cn = (args.marc_cns.size ) ? args.marc_cns.0 : '';
+            
+
+        # clean up the ISBN
+        args.isbn_clean = args.isbns.0.replace('\ .*', '');
+
+        # Extract the 856 URLs that are not otherwise represented by asset.uri's
+        args.online_res = [];
+        FOR node IN xml.findnodes('//*[@tag="856" and @ind1="4" and (@ind2="0" or @ind2="1")]');
+            IF node.findnodes('./*[@code="9" or @code="w" or @code="n"]'); NEXT; END; # asset.uri's
+            label = node.findnodes('./*[@code="y"]');
+            notes = node.findnodes('./*[@code="z" or @code="3"]');
+            FOR href IN node.findnodes('./*[@code="u"]');
+                NEXT UNLESS href;
+                # it's possible for multiple $u's to exist within 1 856 tag.
+                # in that case, honor the label/notes data for the first $u, but
+                # leave any subsequent $u's as unadorned href's. 
+                # use href/link/note keys to be consistent with args.uri's
+                args.online_res.push({
+                    href => href.textContent, 
+                    link => (loop.first AND label) ? label.textContent : href.textContent,
+                    note => (loop.first) ? notes.textContent : ''
+                });
+            END;
+        END;
+ 
+        args.holdings = [];
+        args.uris = [];
+        args.issns = [];
+        args.resolver_isbns = [];
+        args.resolver_issns = [];
+
+        # we use $9 of ISBN and ISSN as a flag for e-version
+        FOR resolver_isbn IN xml.findnodes('//*[@tag="020"]/*[@code="9"]');
+            IF resolver_isbn.textContent == "SFX" || resolver_isbn.textContent == "CUFTS";
+                my_parent = resolver_isbn.parentNode();
+                FOR resolver_isbn_val IN my_parent.findnodes('./*[@code="a"]');
+                    args.resolver_isbns.push(
+                        resolver_isbn_val.textContent.replace('-', '').replace('\ .*', '')
+                    );
+                END;
+            END;
+        END;
+
+        FOR resolver_issn IN xml.findnodes('//*[@tag="022"]/*[@code="9"]');
+            IF resolver_issn.textContent == "SFX" || resolver_issn.textContent == "CUFTS";
+                my_parent = resolver_issn.parentNode();
+                FOR resolver_issn_val IN my_parent.findnodes('./*[@code="a"]');
+                    args.resolver_issns.push(
+                        resolver_issn_val.textContent.replace('[^\d\-X]', '')
+                    );
+                END;
+            END;
+        END;
+
+        # now snag all issns 
+        FOR rawissn IN xml.findnodes('//*[@tag="022"]/*[@code="a"]');
+            args.issns.push(
+                rawissn.textContent.replace('[^\d\-X]', '')
+            );
+        END;
+
+        FOR volume IN xml.findnodes('//*[local-name()="volumes"]/*[local-name()="volume"]');
+
+            # Check volume visibility - could push this into XPath
+            vol.label = volume.getAttribute('label');
+
+            # Prepend prefix, if any
+            prefix = volume.findnodes('./*[local-name()="call_number_prefix"][@ident!="-1"]');
+            IF prefix.getAttribute('label') != '';
+                vol.label = prefix.getAttribute('label') _ " " _ vol.label;
+            END;
+
+            # Append prefix, if any
+            suffix = volume.findnodes('./*[local-name()="call_number_suffix"][@ident!="-1"]');
+            IF suffix.getAttribute('label') != '';
+                vol.label = vol.label _ " " _ suffix.getAttribute('label');
+            END;
+
+            vol.id = volume.getAttribute('id');
+            NEXT IF volume.getAttribute('opac_visible') == 'false';
+            NEXT IF volume.getAttribute('deleted') == 'true';
+
+            IF vol.label == '##URI##';
+                FOR uri IN volume.findnodes('./*[local-name()="uris"]/*[local-name()="uri"]');
+                    res = {};
+                    res.href = uri.getAttribute('href');
+                    res.link = uri.getAttribute('label');
+                    res.note = uri.getAttribute('use_restriction');
+                    args.uris.push(res);
+                END;
+                NEXT;
+            ELSE;
+                copies = volume.findnodes('./*[local-name()="copies"]/*[local-name()="copy"]');
+                FOR copy IN copies;
+                    parts = copy.findnodes('./*[local-name()="monograph_parts"]/*[local-name()="monograph_part"]');
+                    FOREACH part IN parts;
+                        part_label = part.getAttribute('label');
+                        LAST IF part_label != '';
+                    END;
+                    # Check copy visibility
+                    cp.deleted = copy.getAttribute('deleted');    
+                    cp.visible = copy.getAttribute('opac_visible');
+                    NEXT IF (cp.deleted == 'true' OR cp.visible == 'false');
+
+                    # Iterate through all of the children to determine visibility
+                    FOR node IN cp.childNodes;
+                        NEXT IF cp.visible == 'false';
+                        vis = node.getAttribute('opac_visible');
+                        del = node.getAttribute('deleted');
+                        IF vis == 'false' or del == 'true';
+                            cp.visible = 'false';
+                        END;
+                    END;
+
+                    NEXT IF cp.visible == 'false';
+                    
+                    loc = copy.findnodes('./*[local-name()="location"]');
+                    circlib = copy.findnodes('./*[local-name()="circlib"]');
+                    status = copy.findnodes('./*[local-name()="status"]');
+
+                    holding = {
+                        label => vol.label,
+                        part_label => part_label,
+                        location => loc.textContent,
+                        library => circlib.textContent,
+                        status => status.textContent
+                        barcode => copy.getAttribute('barcode')
+                    };
+                    args.holdings.push(holding);
+                    part_label = '';
+                END;
+            END;
+        END;
+
+        # Extract the copy count summary
+        count_type = (ctx.is_staff) ? 'staff' : 'public';
+
+        # Consortial copy count summary first
+        xpath = '//*[local-name()="counts"]/*[local-name()="count"][@type="' _ count_type _ '"]';
+        args.copy_counts = {};
+        FOR node IN xml.findnodes(xpath);
+            FOR attr IN ['count', 'available', 'unshadow', 'transcendant', 'org_unit']; 
+                depth = node.getAttribute('depth');
+                args.copy_counts.$depth.$attr = node.getAttribute(attr);
+            END;
+        END;
+        
+        # Get preferred library copy count
+        args.plib_copy_counts = {};
+        count_type = 'pref_lib';
+        xpath = '//*[local-name()="counts"]/*[local-name()="count"][@type="' _ count_type _ '"]';
+        FOR node IN xml.findnodes(xpath);
+            FOR attr IN ['count', 'available', 'unshadow', 'transcendant', 'org_unit']; 
+                depth = node.getAttribute('depth');
+                args.plib_copy_counts.$depth.$attr = node.getAttribute(attr);
+            END;
+        END;
+
+        # "mattype" == "custom marc format specifier"
+        FOR icon_style IN ['mattype', 'item_type']; 
+            node = xml.findnodes(
+                '//*[local-name()="attributes"]/*[local-name()="field"][@name="' _ icon_style _ '"]');
+            IF node AND node.textContent;
+                type = node.textContent;
+                args.format_label = node.getAttribute('coded-value')
+                args.schema.itemtype = schema_typemap.$type;
+                args.format_icon = ctx.media_prefix _ '/images/format_icons/' _ icon_style _ '/' _ type _ '.png';
+                LAST;
+            END;
+        END;
+
+    END;
+%]

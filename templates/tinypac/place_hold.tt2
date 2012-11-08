@@ -1,0 +1,15 @@
+[%  PROCESS "tinypac/parts/header.tt2";
+    WRAPPER "tinypac/base.tt2";
+    ctx.page_title = l("Place Hold") %]
+    <div id="content-wrapper">
+        <div id="main-content">
+            <div class="common-full-pad"></div>	
+            [% IF ctx.hold_attempt_made %]
+                [% INCLUDE "tinypac/parts/place_hold_result.tt2" %]
+            [% ELSE %]
+                [% INCLUDE "tinypac/parts/place_hold.tt2" %]
+            [% END %]
+            <div class="common-full-pad"></div>	
+        </div>
+    </div>
+[% END %]

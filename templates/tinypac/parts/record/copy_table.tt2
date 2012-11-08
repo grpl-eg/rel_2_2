@@ -1,0 +1,73 @@
+[%-
+
+# If being used in serial mode, flatten list of units so that they can be
+# used like one long list of copies without changing so much code below.
+IF serial_holdings;
+    copies = [];
+    FOREACH h IN serial_holdings;
+        units = h.units.slice(0); # copy
+        FOREACH unit IN units;
+            unit.holding_label = h.label;
+        END;
+        copies = copies.merge(units);
+    END;
+END;
+
+FOREACH copy_info IN copies;
+    IF copy_info.call_number_label != '##URI##';
+        has_copies = 'true';
+    END;
+    IF copy_info.part_label != '';
+        has_parts = 'true';
+    END;
+    IF has_parts && has_copies;
+        LAST;
+    END;
+END;
+-%]
+<div align="left">
+[%- IF has_copies; %]
+        [%- last_cn = 0;
+        FOR copy_info IN copies;
+            callnum = copy_info.call_number_label;
+            NEXT IF callnum == '##URI##';
+
+            callnum_prefix = copy_info.call_number_prefix_label;
+            IF callnum_prefix != "";
+                callnum = callnum_prefix _ " " _ callnum;
+            END;
+
+            callnum_suffix = copy_info.call_number_suffix_label;
+            IF callnum_suffix != "";
+                callnum = callnum  _ " " _ callnum_suffix;
+            END;
+        -%]
+            <b>
+	    [%-
+                org_name = ctx.get_aou(copy_info.circ_lib).name;
+                org_name | html
+            -%]
+	    </b>
+	    <li>
+            [% callnum | html %] [% IF ctx.get_org_setting(CGI.param('loc') OR ctx.aou_tree.id, 'sms.enable') == 1 %](<a href="[% mkurl(ctx.opac_root _ '/sms_cn', {copy_id => copy_info.id}) %]">Text</a>)[% END %]
+	    </li>
+	    <li>
+            [% copy_info.copy_location | html %]
+	    </li>
+            <li>
+	    [% copy_info.copy_status | html %]
+	    </li>
+	    <li>
+            <td header='due_date'>[%
+                IF copy_info.due_date;
+                    date.format(
+                        ctx.parse_datetime(copy_info.due_date),
+                        DATE_FORMAT
+                    );
+                ELSE;
+                    '-';
+                END %]
+	     </li>
+        [%- END %]
+[% END; %]
+</div>

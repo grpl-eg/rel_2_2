@@ -1,0 +1,109 @@
+[%  PROCESS "tinypac/parts/header.tt2";
+    PROCESS "tinypac/parts/misc_util.tt2";
+    PROCESS "tinypac/parts/hold_status.tt2";
+    WRAPPER "tinypac/parts/myopac/base.tt2";
+    myopac_page = "holds"  %]
+<div id='myopac_holds_div'>
+
+<br>
+    <div class="header_middle">
+        <span id="acct_holds_header" style="float:left;">
+            [%  IF CGI.param("available");
+                    l("Items Ready for Pickup");
+                ELSE;
+                    l("Current Items on Hold");
+                END
+            %]
+        </span>
+    </div>
+<br><br>
+    <div class="clear-both"></div>
+    <div id='holds_main'>
+        <form method="POST">
+        <table cellpadding='0' cellspacing='0' class="opac-auto-097">
+            <tr>
+                <td width="1">
+                    <select name="action" id="acct_holds_actions">
+                        <option id='myopac_holds_actions_none' value=''>
+                        -- [% l("Actions for selected holds") %] --
+                        </option>
+                        <option value='suspend'>[% l("Suspend") %]</option>
+                        <option value='activate'>[% l("Activate") %]</option>
+                        <option value='cancel'>[% l("Cancel") %]</option>
+                    </select>
+                </td>
+                <td width="1" style="padding-left:9px;">
+                    <input type="submit" value="[% l(' Go ') %]"
+                        alt="[% l('Go') %]" title="[% l('Go') %]"
+                        class="opac-button" />
+                </td>
+                <td style="padding-left:5px;" class='error'>
+                    [%  IF ctx.hold_suspend_post_capture;
+                            l('One or more holds could not be suspended because<br/>the item is at (or en route to) the pickup library.');
+                        END;
+                    %]
+                </td>
+            </tr>
+        </table>
+        [% IF ctx.holds.size < 1 %]
+        <div class="warning_box">
+            <big><strong>[% l('No holds found.') %]</strong></big>
+        </div>
+        [% ELSE %]
+<br>
+        <table cellpadding='0' cellspacing='0' border='0' width="100%">
+            <tbody id="holds_temp_parent">
+                [% FOR hold IN ctx.holds;
+                    attrs = {marc_xml => hold.marc_xml};
+                    PROCESS get_marc_attrs args=attrs;
+                    ahr = hold.hold.hold %]
+                <tr id="acct_holds_temp" name="acct_holds_temp"
+                    class="acct_holds_temp[% ahr.frozen == 't' ? ' inactive-hold' : '' %]">
+                    <td width="36" align="center" valign="top">
+                        <input type="checkbox" name="hold_id" value="[% ahr.id %]" />
+                    </td>
+                    <td>
+                        [% 
+                                title = attrs.title;
+                                IF ahr.hold_type == 'P';
+                                    title = l('[_1] ([_2])', title, hold.hold.part.label);
+                                END;
+                            %]
+                            <a href="[% mkurl(ctx.opac_root _ '/record/' _ hold.hold.bre_id) %]">[% title | html %]</a>
+                          / <a href="[% mkurl(ctx.opac_root _ '/results',
+                                {qtype => 'author', query => attrs.author.replace('[,\.:;]', '')}
+                            ) %]">[% attrs.author | html %]</a>
+                    <br>
+                        Pickup at: [% ctx.get_aou(ahr.pickup_lib).name | html %]
+                    <br>
+                        [% IF ahr.frozen == 't' AND
+                                ahr.thaw_date;
+                            date.format(ctx.parse_datetime(ahr.thaw_date), DATE_FORMAT);
+                        END %]
+                    <br>
+                        Expires: [% IF ahr.expire_time;
+                            date.format(ctx.parse_datetime(ahr.expire_time), DATE_FORMAT);
+                        END %]
+                    <br>
+                        Status: [% l(ahr.frozen == 'f' ? 'Active' : 'Suspended') %]
+                    <br>
+                        <div name="acct_holds_status"
+                            style="margin-top:10px;margin-bottom:10px;">
+                            [% PROCESS get_hold_status hold=hold; %]
+                        </div>
+		    </td>
+<tr>
+<td colspan=2>
+<br><hr>
+                    </td>
+                </tr>
+                [% END %]
+            </tbody>
+        </table>
+        [% END %]
+        </form>
+    </div>
+
+
+</div>
+[% END %]

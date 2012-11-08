@@ -1,0 +1,41 @@
+[%  PROCESS "tinypac/parts/header.tt2";
+    WRAPPER "tinypac/base.tt2";
+
+    ctx.page_title = l("Search Results: ") _ CGI.param('query') | html;
+
+    page = CGI.param('page');
+    page = page.match('^\d+$') ? page : 0; # verify page is a sane value
+
+    page_count = ctx.page_size == 0 ? 1 : POSIX.ceil(ctx.hit_count / ctx.page_size);
+%]
+<!--
+    <form action="[% ctx.opac_root %]/results" method="GET">
+    <div id="search-wrapper">
+        [% INCLUDE "tinypac/parts/searchbar.tt2" took_care_of_form=1 %]
+    </div>
+-->
+    <div class="">
+        <div id="results_header_bar">
+            <div id="results_header_inner">
+                <div class=""></div>
+<!--
+                    <label class="results_header_lbl">[% l('Sort by') %]
+                    [% INCLUDE "tinypac/parts/filtersort.tt2" value=CGI.param('sort') submit_on_change=1 %]
+                    </label>
+-->
+
+            </div>
+        </div>
+    </div>
+    </form>
+    <br class="clear-both" />
+    <div id="content-wrapper">
+        <div id="main-content">
+            <div id="results-page">
+                [% INCLUDE "tinypac/parts/result/table.tt2" %]
+            </div>
+            <div class="common-full-pad"></div>    
+        </div>
+        <br class="clear-both" />
+    </div>
+[% END %]

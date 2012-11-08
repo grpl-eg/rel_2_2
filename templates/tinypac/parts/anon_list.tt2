@@ -1,0 +1,70 @@
+        [% IF ctx.mylist.size %]
+        <div class="bookbag-specific">
+            <form method="GET">
+                <label for="anonsort">[% l("Sort list items by: ") %]</label>
+                [% INCLUDE "opac/parts/filtersort.tt2" mode='bookbag'
+                    id="anonsort" name="anonsort" value=CGI.param("anonsort") %]
+                <input type="hidden" name="id"
+                    value="[% CGI.param('id') | html %]" />
+                [%- INCLUDE "opac/parts/preserve_params.tt2"; %]
+                <input type="submit" value="[% l('Sort') %]" />
+            </form>
+        </div>
+
+        <form action="[% mkurl(ctx.opac_root _ '/mylist/move') %]" method="GET">
+        <div>
+            <p class="big-strong">[% l('Temporary List') %]</p>
+            <table cellpadding='0' cellspacing='0' border='0'>
+                <thead id="acct_list_header_anon">
+                    <tr>
+                        <td width="1%" style="padding-left:10px;">
+                            <input type="checkbox" onclick="
+                                var inputs=document.getElementsByTagName('input'); 
+                                for (i = 0; i < inputs.length; i++) { 
+                                    if (inputs[i].name == 'record' && !inputs[i].disabled) inputs[i].checked = this.checked;}"/>
+                        </td>
+                        <td width="49%" class="opac-auto-108"><a href="[% mkurl('', {anonsort=>(CGI.param('anonsort') == 'titlesort' ? 'titlesort.descending' : 'titlesort')}) %]">[% l('Title') %]</a></td>
+                        <td width="49%" class="opac-auto-108"><a href="[% mkurl('', {anonsort=>(CGI.param('anonsort') == 'authorsort' ? 'authorsort.descending' : 'authorsort')}) %]">[% l('Author(s)') %]</a% l('Author(s)') %]</td>
+                        <td width="1%" class="nowrap">
+                            <select name="action">
+                                <option>[% l('-- Actions for these items --') %]</option>
+                                <option value="place_hold">[% l('Place hold') %]</option>
+                                <option value="delete">[% l('Remove from list') %]</option>
+                                [% IF ctx.user AND ctx.bookbags.size %]
+                                <optgroup label="[% l('Move selected items to bookbag:') %]">
+                                    [% FOR bbag IN ctx.bookbags %]]
+                                    <option value="[% bbag.id %]" class="selector_actions_for_list_inner_option">[% bbag.name | html %]</option>
+                                    [% END %]
+                                </optgroup>
+                                [% END %]
+                            </select>
+                            [%- INCLUDE "opac/parts/preserve_params.tt2"; %]
+                            <input type="submit" value="[% l('Go') %]" />
+                        </td>
+                    </tr>
+                </thead>
+                <tbody>
+                    [% FOR item IN ctx.mylist;
+                        attrs = {marc_xml => ctx.mylist_marc_xml.$item};
+                        PROCESS get_marc_attrs args=attrs %]
+                    <tr>
+                        <td class="item_list_padding" style="padding-left: 10px;">
+                            <input type="checkbox" name="record" value="[% item %]" />
+                        </td>
+                        <td class="item_list_padding" style="padding-left: 5px;"><a href="[% mkurl(ctx.opac_root _ '/record/' _ item, {}, ['edit_notes', 'id']) %]">[% attrs.title | html %]</a></td>
+                        <td class="item_list_padding" style="padding-left: 5px;"><a href="[%- 
+                            authorquery = attrs.author | replace('[,\.:;]', '');
+                            mkurl(
+                                ctx.opac_root _ '/results',
+                                {qtype => 'author', query => authorquery},
+                                ['page', 'id', 'edit_notes']
+                            )
+                        -%]">[% attrs.author | html %]</a></td>
+                    </tr>
+                    [% END %]
+                </tbody>
+            </table>
+            <br /><br />
+        </div>
+        </form>
+        [% END %]

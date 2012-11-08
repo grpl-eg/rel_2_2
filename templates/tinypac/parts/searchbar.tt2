@@ -1,0 +1,32 @@
+[% PROCESS "tinypac/parts/org_selector.tt2" %]
+<div id="search-box">    
+     <img src=/css/deliciousmagazine/GRPL-homepagename1.png>
+<br>
+<span>Search the Catalog</span>
+   <form action="[% ctx.opac_root %]/results" method="GET">
+<br>
+        <span class='search_box_wrapper'>
+            <input type="text" id="search_box" name="query"
+                value="[% CGI.param('query') | html %]" />
+        </span>
+<br>
+        [%- INCLUDE "tinypac/parts/qtype_selector.tt2" id="qtype" %]
+<br>
+
+    [% UNLESS took_care_of_form -%]
+    [%- END %]
+        [%- INCLUDE "tinypac/parts/coded_value_selector.tt2"
+            attr=["mattype", "format"] none_ok=1 none_label=l('All Formats');
+        %]
+<br>
+<br>
+        [%- INCLUDE build_org_selector show_loc_groups=1 %]
+<br>
+<br>
+    <span>
+        <input id='search-submit-go' type="submit" value="[% l('Search') %]" alt="[% l('Search') %]" class="opac-button"
+            onclick='setTimeout(function(){$("search-submit-spinner").className=""; $("search-submit-go").className="hidden"}, 2000)'/>
+    </span>
+  
+    [% UNLESS took_care_of_form %]</form>[% END %]
+</div>

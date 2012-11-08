@@ -1,0 +1,21 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns='http://www.w3.org/1999/xhtml' lang='[% ctx.locale %]' xml:lang='[% ctx.locale %]'>
+    <head>
+        <title>[% ctx.page_title %]</title>
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	<meta name="viewport" content="width=470, initial-scale=0.25, minimum-scale=0.25"/>
+    </head>
+    <body class='tundra'>
+        <div id="oils-base-body-block" class="tundra"> 
+            <div id="oils-base-header-block" layoutAlign="top">
+                <div id='oils-base-header-auto-login-block'>
+                </div>
+            </div>
+            <div id="oils-base-main-block" layoutAlign="client">
+                <div id="oils-base-content-block" layoutAlign="client">
+                    [% content %]
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
