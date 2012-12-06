@@ -65,6 +65,10 @@
                         <br>
                             Renewals Remaining: [% circ.circ.renewal_remaining %]
                         <br>
+                        [%
+                            due_date = ctx.parse_datetime(circ.circ.due_date);
+                            due_class = (date.now > date.format(due_date, '%s')) ? 'error' : '';
+                        %]
                             Due Date: [% date.format(due_date, DATE_FORMAT) %]
                         <br>
 			    Barcode: 
