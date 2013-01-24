@@ -273,6 +273,10 @@
                 args.format_icon = ctx.media_prefix _ '/images/format_icons/item_type/ebook.png';
                 LAST;
             END;
+            IF vol.label.match("Large Print");
+                args.format_icon = ctx.media_prefix _ '/images/format_icons/item_type/lp.png';
+                LAST;
+            END;
             IF node AND node.textContent;
                 type = node.textContent;
                 args.format_label = node.getAttribute('coded-value')
@@ -283,4 +287,20 @@
         END;
 
     END;
+
+    # Get the library or location group
+    # get_library()
+    BLOCK get_library;
+        IF !loc_name; 
+            loc_name = 'loc';
+            IF show_loc_groups; loc_name = 'locg'; END;
+        END;
+        IF !loc_value;
+            loc_value = CGI.param('loc') || ctx.search_ou;
+            IF show_loc_groups; 
+                loc_value = CGI.param('locg') || ctx.search_ou;
+            END;
+        END;
+    END;
+
 %]

@@ -19,7 +19,7 @@
         [% END %]
         [% INCLUDE 'opac/parts/goog_analytics.tt2' %]
     </head>
-    <body[% IF want_dojo; ' class="tundra"; onload="dijit.byId(search_box).focus();"'; END %]>
+    <body[% IF want_dojo; ' class="tundra"; onload="document.getElementById(\'search_box\').focus();"'; END %]>
         [% content %] 
         [% INCLUDE 'opac/parts/footer.tt2' %]
         [% INCLUDE 'opac/parts/js.tt2' %]
