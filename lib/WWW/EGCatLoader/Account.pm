@@ -351,6 +351,7 @@ sub load_myopac_prefs_settings {
         opac.hits_per_page
         opac.default_search_location
         opac.default_pickup_location
+	opac.expand_details
     /;
 
     my $stat = $self->_load_user_with_prefs;
@@ -657,6 +658,7 @@ sub load_place_hold {
         if ($ctx->{phone_notify}) { $hdata->{phone_notify} = $ctx->{phone_notify}; }
         if ($ctx->{sms_notify}) { $hdata->{sms_notify} = $ctx->{sms_notify}; }
         if ($ctx->{sms_carrier}) { $hdata->{sms_carrier} = $ctx->{sms_carrier}; }
+	if ($cgi->param('hold_suspend')) {$hdata->{frozen} = 't'; }
         return $hdata;
     };
 
