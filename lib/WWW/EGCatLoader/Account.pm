@@ -351,7 +351,6 @@ sub load_myopac_prefs_settings {
         opac.hits_per_page
         opac.default_search_location
         opac.default_pickup_location
-	opac.expand_details
     /;
 
     my $stat = $self->_load_user_with_prefs;
@@ -658,7 +657,6 @@ sub load_place_hold {
         if ($ctx->{phone_notify}) { $hdata->{phone_notify} = $ctx->{phone_notify}; }
         if ($ctx->{sms_notify}) { $hdata->{sms_notify} = $ctx->{sms_notify}; }
         if ($ctx->{sms_carrier}) { $hdata->{sms_carrier} = $ctx->{sms_carrier}; }
-	if ($cgi->param('hold_suspend')) {$hdata->{frozen} = 't'; }
         return $hdata;
     };
 
@@ -1324,6 +1322,105 @@ sub load_myopac_receipt_email {
 
     return Apache2::Const::OK;
 }
+
+sub load_myopac_purchase_request {
+    my $self = shift;
+    my $e = $self->editor;
+
+    my $query = {
+        "select"=>{
+                "aur"=>['id','title','author','isxn','request_date'],
+                "acqcr" => ['label','description']
+        },
+        "from" => { "aur" => {
+                    "acqcr" => { 'field' => 'id', 'fkey' => 'cancel_reason', 'type' => 'left' } }
+        },
+        "where"=>{ 'usr' => $e->requestor->id},
+        "order_by"=>[{"class"=>"aur", "field"=>"request_date", "direction"=>"desc"}],
+    };
+
+    $self->ctx->{purchase_request} = $e->json_query($query);
+
+    return Apache2::Const::OK;
+}
+
+sub load_myopac_purchase_request_form {
+    my $self = shift;
+    my $e = $self->editor;
+    my $ctx = $self->ctx;
+
+    $self->prepare_extended_user_info;
+    my $user = $self->ctx->{user};
+
+    my $date = DateTime->now();
+    my $past = $date->subtract(years=>1);
+    $past =~ s/(.*?)(T.*)/$1/;
+
+    my $query = {
+        "select" => {
+                "aur" => [{column => 'id', transform => 'count', alias => 'count'}]},
+        "from" => { "aur" => {} },
+        "where" => { "request_date" => {">" => $past }, "usr" => $e->requestor->id }
+    };
+
+    my $res = $e->json_query($query);
+
+    $ctx->{purchase_request}->{count} = $res->[0]->{count};
+
+    if ($res->[0]->{count} >= 15){
+	$ctx->{purchase_request}->{success} = 0;
+	return Apache2::Const::OK;
+    }
+
+    return Apache2::Const::OK
+        unless $self->cgi->request_method eq 'POST';
+
+    my $title = $self->cgi->param('title') || '';
+    my $author = $self->cgi->param('author') || '';
+    my $isbn = $self->cgi->param('isbn') || '';
+    my $other = $self->cgi->param('other_info') || '';
+    my $hold = $self->cgi->param('hold') || '0';
+    my $location = $self->cgi->param('location') || '';
+    my $format = $self->cgi->param('format') || '';
+    my $volume = $self->cgi->param('volume');
+    my $email = $self->cgi->param('email');
+
+    if ($e->requestor->email ne $email){
+	my $ed = new_editor(authtoken=>$e->authtoken, xact=>1);
+        my $db_user = $ed->retrieve_actor_user($e->requestor->id)
+        or return $ed->die_event;
+        $db_user->email($email);
+	$ed->update_actor_user($db_user) or return $ed->die_event;
+        $ed->commit;
+    }
+
+    my $args = {
+		'title' => $title,
+		'author' => $author,
+		'isxn' => $isbn,
+		'other_info' => $other,
+		'hold' => $hold,
+		'location' => $location,
+		'volume' => $volume,
+		'holdable_formats' => $format,
+		'request_type' => 1
+	      };
+
+   my $evt = $U->simplereq(
+            'open-ils.acq',
+            'open-ils.acq.user_request.create',
+            $e->authtoken, $args);
+
+    unless ($self->cgi->param("redirect_to")) {
+        my $url = $self->apache->unparsed_uri;
+        $url =~ s/purchase_request_form/purchase_request/;
+
+        return $self->generic_redirect($url);
+    }
+
+    return $self->generic_redirect;
+}
+
 
 sub prepare_fines {
     my ($self, $limit, $offset, $id_list) = @_;

@@ -1,0 +1,70 @@
+[%  PROCESS "opac/parts/header.tt2";
+    PROCESS "opac/parts/misc_util.tt2";
+    WRAPPER "opac/parts/myopac/base.tt2";
+    myopac_page = "purchase_request_form";
+%]
+
+<script language='javascript'>
+function validate_form(){
+  var t = dojo.byId('form_title').value;
+  var a = dojo.byId('form_author').value;
+  if(!t || !a){
+    alert("Please complete required fields");
+    return false;
+  }
+  return true;
+}
+</script>
+
+<div id='myopac_request_div'>
+
+    <div id="acct_request_tabs">
+        <div class="align selected">
+            <a href='#'>[% l("Suggest New Title") %]</a>
+        </div>
+        <div class="align">
+            <a href='[% mkurl('purchase_request') %]'>[% l("Previously Suggested Titles") %]</a>
+        </div>
+    </div>
+
+
+    <div class="header_middle">
+        <span style="float:left;">[% l("Suggest Item") %]</span>
+    </div>
+    <div class="clear-both"></div>
+
+    <div id='request_main'>
+    <p>Not finding what you are looking for in our catalog? We welcome and appreciate your suggestions! Suggested titles must meet the needs of the Library's overall collection as determined by the <a href="http://www.grpl.org/wp-content/uploads/2012/04/Collection_Development_Policy.pdf">Collection Development Policy</a>. Please search the catalog before submitting a suggestion. We will do our best, but the Library may not be able to purchase all suggested titles.</p>
+    <br/>
+
+    <div style="margin-left: 20px;padding-bottom: 20px;">
+        <li><strong>Suggested items must already be published and currently available for purchase in stores.</strong></li>
+        <li><strong>Each patron is limited to 15 suggestions per year.</strong></li>
+	<li><strong>Email is the only method of notification. We will only notify you if we do not purchase the item.</strong></li>
+    </div>
+
+
+    <div align='right'>
+	Current Request Count : [% ctx.purchase_request.count | html %]
+    </div>
+    [% IF ctx.purchase_request.success == 0 %]
+	<div>
+		<font color=red>Requests are limited to 15 per year.  You have now reached your limit.</font> <br/>
+	</div>
+    [% END %]
+<form method='POST' id='request_form' onsubmit="return validate_form();">
+    <input type=hidden name=volume id=volume value=[% ctx.user.card.barcode %]>
+    <table>
+        <tr><td>[% l('Title (required)') %]</td><td><input type='text' id='form_title' name='title'/></td></tr>
+        <tr><td>[% l('Author (required)') %]</td><td><input type='text' id='form_author' name='author'/></td></tr>
+        <tr><td>[% l('ISBN (if known)') %]</td><td><input type='text' name='isbn'/></td></tr>
+        <tr><td>[% l('Format') %]</td><td><select name='format'><option>Book<option>Music CD<option>Book on CD<option>DVD<option>Other</select></td></tr>
+	<tr><td>[% l('Your Branch Library') %]</td><td><select name='location'><option>Main Library<option>Madison Square<option>Ottawa Hills<option>Seymour<option>VanBelkum at Creston<option>West Leonard<option>Westside<option>Yankee Clipper</select></td></tr>
+        <tr><td>[% l('Additional Information') %]</td><td><input type='text' name='other_info'/></td></tr>
+	<tr><td>[% l('Your Email')%]</td><td><input type='text' name='email' value="[% ctx.user.email | html %]"/></td></tr>
+        <tr><td>[% l('Place hold?') %]</td><td><input type='checkbox' name='hold' value='t'/></td></tr>
+        <tr><td colspan='2' align='center'><input value="[% l('Submit') %]" type='submit'/></td></tr>
+    </table>
+</form>
+    </div>
+[% END %]

@@ -6,7 +6,7 @@
 <div id=extra_links align=center>
 	<a href='/opac/en-US/skin/grpl/xml/index.xml?ol=9&d=1'>Javascript Catalog</a>
 	<span> | </span>
-	<a href='http://www.grpl.org/about/contact-us/suggest-a-title/' target='_blank' >Suggest a Title</a>
+	<a href='/eg/opac/myopac/purchase_request_form' >Suggest a Title</a>
 	<span> | </span>
         <a href='http://lakenet.llcoop.org/' target='_blank' >Search LakeNet</a>
         <span> | </span>

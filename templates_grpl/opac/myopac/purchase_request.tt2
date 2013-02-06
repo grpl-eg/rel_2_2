@@ -1,0 +1,70 @@
+[%  PROCESS "opac/parts/header.tt2";
+    PROCESS "opac/parts/misc_util.tt2";
+    WRAPPER "opac/parts/myopac/base.tt2";
+    myopac_page = "purchase_request";
+%]
+
+<div id='myopac_request_div'>
+
+    <div id="acct_request_tabs">
+        <div class="align">
+            <a href='[% mkurl('purchase_request_form') %]'>[% l("Suggest New Title") %]</a>
+        </div>
+        <div class="align selected">
+            <a href='#'>[% l("Previously Suggested Titles") %]</a>
+        </div>
+    </div>
+
+
+    <div id='request_main'>
+    <br/>
+   
+    <div class="header_middle">
+	<span style="float:left;">[% l("Previously Suggested Items") %]</span>
+    </div>
+
+        [% IF ctx.purchase_request < 1 %]
+        <div class="warning_box">
+            <big><strong>[% l('No requests found.') %]</strong></big>
+        </div>
+        [% ELSE %]
+	[% line=1 %]
+        <table style='border-collapse:collapse; width: 100%;'>
+            <thead id='acct_holds_main_header'>
+                <tr>
+		    <td width="20"> </td>
+                    <td width="138"><span>[% l('Title') %]</span></td>
+                    <td width="123"><span>[% l('Author') %]</span></td>
+                    <td width="106">[% l('Request Date') %]</td>
+                </tr>
+            </thead>
+            <tbody>
+                [% FOR request IN ctx.purchase_request %]
+                <tr>
+		    <td width="20">
+			<div style="margin-top:10px;margin-bottom:10px;">
+			    [% line %]</td>
+			</div>
+                    <td width="138">
+                        <div style="margin-top:10px;margin-bottom:10px;">
+                            [% request.title | html %]
+                        </div>
+                    </td>
+                    <td width="123">
+                        <div style="margin-top:10px;margin-bottom:10px;">
+                            [% request.author | html %]
+                        </div>
+                    </td>
+                    <td width="106">
+                        <div style="margin-top:10px;margin-bottom:10px;">
+			    [% date.format(ctx.parse_datetime(request.request_date), DATE_FORMAT); %]
+                        </div>
+                    </td>
+                </tr>
+		[% line=line+1 %]
+                [% END %]
+            </tbody>
+        </table>
+        [% END %]
+    </div>
+[% END %]

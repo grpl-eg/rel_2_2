@@ -188,6 +188,8 @@ sub load {
     return $self->load_myopac_prefs_settings if $path =~ m|opac/myopac/prefs_settings|;
     return $self->load_myopac_prefs if $path =~ m|opac/myopac/prefs|;
     return $self->load_sms_cn if $path =~ m|opac/sms_cn|;
+    return $self->load_myopac_purchase_request_form if $path =~ m|opac/myopac/purchase_request_form|;
+    return $self->load_myopac_purchase_request if $path =~ m|opac/myopac/purchase_request|;
 
     return Apache2::Const::OK;
 }
