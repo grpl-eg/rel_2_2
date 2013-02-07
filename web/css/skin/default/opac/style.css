@@ -303,13 +303,13 @@ span.dash_divider {
 	font-size: 10px;
 }
 
-#adv_search_tabs, #acct_tabs, #acct_fines_tabs, #acct_checked_tabs, #acct_holds_tabs, #acct_prefs_tabs, #results_header_inner{
+#adv_search_tabs, #acct_tabs, #acct_fines_tabs, #acct_checked_tabs, #acct_holds_tabs, #acct_prefs_tabs, #results_header_inner, #acct_request_tabs{
 	height: 47px;
 	margin-left: 1em;
 	color: white;
 }
 
-#adv_search_tabs a, #acct_tabs a, #acct_fines_tabs a, #acct_checked_tabs a, #acct_holds_tabs a, #acct_prefs_tabs a {
+#adv_search_tabs a, #acct_tabs a, #acct_fines_tabs a, #acct_checked_tabs a, #acct_holds_tabs a, #acct_prefs_tabs a , #acct_request_tabs a{
     float: left;
     text-align: center;
     vertical-align: middle;
@@ -329,7 +329,7 @@ span.dash_divider {
     padding: 1em 1em 0.5em;
 }
 
-#adv_search_tabs a:hover, #acct_tabs a:hover, #acct_fines_tabs a:hover, #acct_checked_tabs a:hover, #acct_holds_tabs a:hover, #acct_prefs_tabs a:hover {
+#adv_search_tabs a:hover, #acct_tabs a:hover, #acct_fines_tabs a:hover, #acct_checked_tabs a:hover, #acct_holds_tabs a:hover, #acct_prefs_tabs a:hover, #acct_request_tabs a:hover {
     background: #06357a; 
     color: white;
     text-decoration: underline;
@@ -351,19 +351,19 @@ span.dash_divider {
     background: #69A088;
 }
 
-#acct_checked_tabs a, #acct_holds_tabs a, #acct_prefs_tabs a {
+#acct_checked_tabs a, #acct_holds_tabs a, #acct_prefs_tabs a, #acct_request_tabs a {
     margin-top: 0px;
     font-size: 10px;
     color: white;
     padding: 10px 10px 10px 10px;
 }
 
-#acct_checked_tabs div.selected a, #acct_holds_tabs div.selected a, #acct_prefs_tabs div.selected a {
+#acct_checked_tabs div.selected a, #acct_holds_tabs div.selected a, #acct_prefs_tabs div.selected a, #acct_request_tabs div.selected a {
     background: #e1e1e1;
     color: #333333;
 }
 
-#acct_checked_tabs, #acct_holds_tabs, #acct_prefs_tabs {
+#acct_checked_tabs, #acct_holds_tabs, #acct_prefs_tabs, #acct_request_tabs {
     padding-bottom: 12px;
     color: #666;
 }
