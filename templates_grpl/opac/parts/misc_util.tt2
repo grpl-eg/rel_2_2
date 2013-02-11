@@ -83,10 +83,10 @@
         args.phys_desc = phys_content.join(" ");
 
         args.contents_list = [];
-        FOR sub IN xml.findnodes('//*[@tag="505"]');
+        FOR sub IN xml.findnodes('//*[@tag="505" or @tag="508" or @tag="511" or @tag="518"]');
             args.contents_list.push(sub.textContent);
         END;
-        args.contents = args.contents_list.join(" ");
+        args.contents = args.contents_list.join("<br>");
         args.content = (args.contents.size) ? args.contents.0 : '';
 
         # MARC Callnumber
