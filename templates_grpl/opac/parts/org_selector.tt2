@@ -81,6 +81,8 @@ BLOCK build_org_selector;
 
             IF can_have_vols_only AND org_unit.ou_type.can_have_vols != 't';
                 disabled = 'disabled="disabled"';
+            ELSIF org_unit.opac_visible == 'f';
+                disabled = 'disabled="disabled"';
             ELSIF node_value == value;
                 selected = 'selected="selected"';
             END; 
