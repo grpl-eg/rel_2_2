@@ -1768,6 +1768,7 @@ cat.copy_browser.prototype = {
                             'holdable',
                             'opac_visible',
                             'ref',
+			    'floating',
                             'deposit',
                             'deposit_amount',
                             'price',
