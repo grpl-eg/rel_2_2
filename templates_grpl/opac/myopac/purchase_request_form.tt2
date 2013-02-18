@@ -55,14 +55,14 @@ function validate_form(){
 <form method='POST' id='request_form' onsubmit="return validate_form();">
     <input type=hidden name=volume id=volume value=[% ctx.user.card.barcode %]>
     <table>
-        <tr><td>[% l('Title (required)') %]</td><td><input type='text' id='form_title' name='title'/></td></tr>
-        <tr><td>[% l('Author (required)') %]</td><td><input type='text' id='form_author' name='author'/></td></tr>
-        <tr><td>[% l('ISBN (if known)') %]</td><td><input type='text' name='isbn'/></td></tr>
+        <tr><td>[% l('Title (required)') %]</td><td><input type='text' id='form_title' name='title' size='50'/></td></tr>
+        <tr><td>[% l('Author (required)') %]</td><td><input type='text' id='form_author' name='author' size='50'/></td></tr>
+        <tr><td>[% l('ISBN (if known)') %]</td><td><input type='text' name='isbn' size='30'/></td></tr>
         <tr><td>[% l('Format') %]</td><td><select name='format'><option>Book<option>Music CD<option>Book on CD<option>DVD<option>Other</select></td></tr>
+	<tr><td>[% l('Additional Information') %]</td><td><input type='text' name='other_info' size='50'/></td></tr>
 	<tr><td>[% l('Your Branch Library') %]</td><td><select name='location'><option>Main Library<option>Madison Square<option>Ottawa Hills<option>Seymour<option>VanBelkum at Creston<option>West Leonard<option>Westside<option>Yankee Clipper</select></td></tr>
-        <tr><td>[% l('Additional Information') %]</td><td><input type='text' name='other_info'/></td></tr>
-	<tr><td>[% l('Your Email')%]</td><td><input type='text' name='email' value="[% ctx.user.email | html %]"/></td></tr>
-        <tr><td>[% l('Place hold?') %]</td><td><input type='checkbox' name='hold' value='t'/></td></tr>
+	<tr><td>[% l('Your Email')%]</td><td><input type='text' name='email' value="[% ctx.user.email | html %]" size='30'/></td></tr>
+        <tr><td>[% l('Place hold?') %]</td><td><input type='checkbox' name='hold' value='t' checked='checked'/></td></tr>
         <tr><td colspan='2' align='center'><input value="[% l('Submit') %]" type='submit'/></td></tr>
     </table>
 </form>
