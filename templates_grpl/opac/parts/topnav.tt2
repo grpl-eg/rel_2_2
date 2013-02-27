@@ -30,8 +30,6 @@
 <!-- Woo Custom Styling -->
 <style type="text/css">
 #wrapper {background:#ffffff}
-a {color:#06a1ff}
-a:hover, .post-more a:hover, .post-meta a:hover, .post p.tags a:hover {color:#06a1ff}
 a.button, a.comment-reply-link, #commentform #submit, #contact-page .submit {background:#ececec;border-color:#ececec}
 a.button:hover, a.button.hover, a.button.active, a.comment-reply-link:hover, #commentform #submit:hover, #contact-page .submit:hover {background:#ececec;opacity:0.9;}
 </style>

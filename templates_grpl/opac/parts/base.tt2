@@ -19,12 +19,18 @@
         [% END %]
         [% INCLUDE 'opac/parts/goog_analytics.tt2' %]
     </head>
-    <body[% IF want_dojo; ' class="tundra"; onload="document.getElementById(\'search_box\').focus();"'; END %]>
+<script language='javascript'>
+        if (window.location.hash.match(/#/))
+		document.writeln('<body>');
+	  else
+		document.writeln('<body class="tundra"; onload="document.getElementById(\'search_box\').focus();">');
+	
+</script>
+
         [% content %] 
-        [% INCLUDE 'opac/parts/footer.tt2' %]
+        [%- IF NOT ctx.is_staff %]
+            [% INCLUDE 'opac/parts/footer.tt2' %]
+	[%- END %]
         [% INCLUDE 'opac/parts/js.tt2' %]
-        [%- IF ENV.OILS_CHILIFRESH_ACCOUNT %]
-            [%- INCLUDE 'opac/parts/chilifresh.tt2' %]
-        [%- END %]
     </body>
 </html>

@@ -1,36 +1,19 @@
 [%- depths = attrs.copy_counts.size;
-    depth = 1;
+    depth = 0;
     displayed_ous = {};
-    WHILE depth < depths;
         ou_name = ctx.get_aou(attrs.copy_counts.$depth.org_unit).name;
         displayed_ous.$ou_name = 1;
         IF attrs.copy_counts.$depth.count > 0;
 %]
-<div class="result_count">
+<div class="result_count" style='padding-left: 15px;'>
 [% IF ctx.get_aou(attrs.copy_counts.$depth.org_unit).opac_visible == 't' %]
-    [% l('[_1] of [quant,_2,copy,copies] available at [_3].',
+    [% l('[_1] of [quant,_2,copy,copies] available at one or more locations.',
         attrs.copy_counts.$depth.available,
         attrs.copy_counts.$depth.count,
         ou_name) | html
     %]
 [% END %]
 </div>
-[%-     END;
-    depth = depth + 1;
-    END;
+[%-     END; %]
 
-    depth = attrs.plib_copy_counts.size - 1;
-    ou_name = ctx.get_aou(attrs.plib_copy_counts.$depth.org_unit).name;
-    UNLESS displayed_ous.exists(ou_name);
     
-%]
-[%- IF attrs.plib_copy_counts.$depth.count > 0; %]
-<div class="result_count preferred">[%
-     l('[_1] of [quant,_2,copy,copies] available at [_3].',
-        attrs.plib_copy_counts.$depth.available,
-        attrs.plib_copy_counts.$depth.count,
-        ou_name) | html
-    %]
-</div>
-[%- END %]
-[%- END %]

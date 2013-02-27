@@ -3,6 +3,7 @@
     hostname = CGI.url({'-base' => 1});
 -%]
 
+
 <div id=extra_links align=center>
 	<a href='/opac/en-US/skin/grpl/xml/index.xml?ol=9&d=1'>Javascript Catalog</a>
 	<span> | </span>

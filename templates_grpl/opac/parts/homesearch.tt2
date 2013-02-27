@@ -8,12 +8,12 @@
 				        
 		<div class="slide">
 
-			<a href="http://www.grpl.org/dayofthedead/" title="Now accepting applications for Día de los Muertos"><img src="http://www.grpl.org/wp-content/uploads/2012/09/banner-DayoftheDead.png" alt="Day of the Dead"  width="652"  height="290"  class="woo-image" /></a>
+			<a href="http://www.grpl.org/march-madness-library-style/"  title="March Madness Library Style!"><img src="http://www.grpl.org/wp-content/uploads/2013/02/rotate-2013.03-MarchMadness.png" alt=""  width="652"  height="290"  class="woo-image" /></a>
 			<div class="caption" style="bottom:0">
-				<span class="post-meta featured-category"><a href="http://www.grpl.org/category/event/" title="View all posts in Event" rel="category tag">Event</a></span>
-				<h2 class="title"><a href="http://www.grpl.org/dayofthedead/" rel="bookmark" title="Now accepting applications for Día de los Muertos">Now accepting applications for Día de los Muertos</a></h2>
+				<span class="post-meta featured-category"><a href="http://www.grpl.org/category/uncategorized/" title="View all posts in Uncategorized" rel="category tag">Uncategorized</a></span>
+				<h2 class="title"><a href="http://www.grpl.org/march-madness-library-style/" rel="bookmark" title="March Madness Library Style!">March Madness Library Style!</a></h2>
 				<div class="entry">
-					<p>Would you like to honor a loved one by creating an altar? Apply by October 4.</p>
+					<p>What was the best book published in 2012? Time to vote for your own sweet 16!</p>
 				</div>
 			</div><!-- /.caption -->
 
@@ -22,12 +22,12 @@
 				        
 		<div class="slide">
 
-			<a href="http://www.grpl.org/show-your-library-love/" title="Show your library love!"><img src="http://www.grpl.org/wp-content/uploads/2012/08/banner-heart-fall.png" alt=""  width="652"  height="290"  class="woo-image" /></a>
+			<a href="http://www.grpl.org/digital-magazines-now-available-at-grpl/"  title="Digital magazines now available at GRPL!"><img src="http://www.grpl.org/wp-content/uploads/2013/02/rotate-2013.02-zinio.png" alt=""  width="652"  height="290"  class="woo-image" /></a>
 			<div class="caption" >
-				<span class="post-meta featured-category"><a href="http://www.grpl.org/category/library-news/" title="View all posts in Library News" rel="category tag">Library News</a></span>
-				<h2 class="title"><a href="http://www.grpl.org/show-your-library-love/" rel="bookmark" title="Show your library love!">Show your library love!</a></h2>
+				<span class="post-meta featured-category"><a href="http://www.grpl.org/category/news/" title="View all posts in Library News" rel="category tag">Library News</a></span>
+				<h2 class="title"><a href="http://www.grpl.org/digital-magazines-now-available-at-grpl/" rel="bookmark" title="Digital magazines now available at GRPL!">Digital magazines now available at GRPL!</a></h2>
 				<div class="entry">
-					<p>Show your library love by making a donation to the Grand Rapids Public Library Foundation!</p>
+					<p>We now offer downloadable popular magazines from Zinio to read on your computer or portable device.</p>
 				</div>
 			</div><!-- /.caption -->
 
@@ -36,39 +36,18 @@
 				        
 		<div class="slide">
 
-			<a href="http://www.grpl.org/your-library-is-about-to-get-better/" title="Your library is about to get better!"><img src="http://www.grpl.org/wp-content/uploads/2012/04/banner-technology.png" alt="Your library is about to get better!"  width="652"  height="290"  class="woo-image" /></a>
+			<a href="http://www.grpl.org/spilled-ink-bonus-challenges/"  title="Spilled Ink Bonus Challenges!"><img src="http://www.grpl.org/wp-content/uploads/2013/01/rotate-2013.01-bonuschallenge.png" alt=""  width="652"  height="290"  class="woo-image" /></a>
 			<div class="caption" >
-				<span class="post-meta featured-category"><a href="http://www.grpl.org/category/library-news/" title="View all posts in Library News" rel="category tag">Library News</a></span>
-				<h2 class="title"><a href="http://www.grpl.org/your-library-is-about-to-get-better/" rel="bookmark" title="Your library is about to get better!">Your library is about to get better!</a></h2>
+				<span class="post-meta featured-category"><a href="http://www.grpl.org/category/books-movies-music/" title="View all posts in Books, Movies, Music" rel="category tag">Books, Movies, Music</a>, <a href="http://www.grpl.org/category/event/" title="View all posts in Event" rel="category tag">Event</a>, <a href="http://www.grpl.org/category/trending/" title="View all posts in Trending" rel="category tag">Trending</a></span>
+				<h2 class="title"><a href="http://www.grpl.org/spilled-ink-bonus-challenges/" rel="bookmark" title="Spilled Ink Bonus Challenges!">Spilled Ink Bonus Challenges!</a></h2>
 				<div class="entry">
-					<p>Technology upgrades are coming to your library. Find out what this means for you!</p>
+					<p>Are you up for a reading challenge and a chance to earn limited edition buttons?</p>
 				</div>
 			</div><!-- /.caption -->
 
 		</div><!-- /.slide -->
 
-		    <script type="text/javascript">
-    // <![CDATA[
-        var disqus_shortname = 'theatrium';
-        (function () {
-            var nodes = document.getElementsByTagName('span');
-            for (var i = 0, url; i < nodes.length; i++) {
-                if (nodes[i].className.indexOf('dsq-postid') != -1) {
-                    nodes[i].parentNode.setAttribute('data-disqus-identifier', nodes[i].getAttribute('rel'));
-                    url = nodes[i].parentNode.href.split('#', 1);
-                    if (url.length == 1) { url = url[0]; }
-                    else { url = url[1]; }
-                    nodes[i].parentNode.href = url + '#disqus_thread';
-                }
-            }
-            var s = document.createElement('script'); s.async = true;
-            s.type = 'text/javascript';
-                        s.src = 'http' + '://' + 'disqus.com/forums/' + disqus_shortname + '/count.js';
-            (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
-        }());
-    //]]>
-    </script>
-
+		
 
 </div><!-- /#slides_container -->
 

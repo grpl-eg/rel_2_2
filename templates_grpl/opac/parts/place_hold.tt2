@@ -76,6 +76,15 @@
         </p>
 [% IF ctx.is_staff %]
 <div id='staff_privacy' style='visibility: hidden'>
+
+   <p>
+        <input type="submit" name="submit" value="[% l('Submit') %]" title="[% l('Submit') %]"
+            alt="[% l('Submit') %]" class="opac-button" />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="reset" name="cancel" onclick="javascript:history.go(-1);"
+            value="[% l('Cancel') %]" id="holds_cancel" class="opac-button" />
+   </p>
+
 [% ELSE %]
 <div id='staff_privacy'>
 [% END %]

@@ -1,6 +1,5 @@
 <div class='rdetail_extras_div'> 
     <div style="margin-bottom:20px;"></div>
-
         <!-- Chilifresh patron reviews -->
         <strong>[% l('Patron Reviews:') %]</strong>
         <div style="margin-bottom:20px;">
@@ -29,4 +28,3 @@
         [% END %]
     </div>
 </div>
-
