@@ -165,6 +165,8 @@ IF num_uris > 0;
 		[%- archMat = 1 %]
 	  [% ELSIF (uri.href.match('overdrive')) %]
 		<a href="[% uri.href %]">Download From Overdrive</a>
+	  [% ELSIF (uri.href.match('contentdm')) %]
+                <a href="[% uri.href %]">Click for Archive Photograph</a>
 	  [% ELSE %]
         	<a href="[% uri.href %]">Click for Online Resource</a>
 	[% END %]
@@ -177,7 +179,11 @@ IF num_uris > 0;
 <div class='rdetail_grpl_display'><br>
 [%- IF args.summary %]
         <strong class='rdetail_label'>[% l("Summary:") %]</strong>
-        <span class='rdetail_value'>[% args.summary | html %] </span>
+	[% IF ctx.bre_source == 6 %]
+		[% args.summary.replace('Grand Rapids History & Special Collections Department', '<br>Grand Rapids History & Special Collections Department<br>') %]
+	[% ELSE %]
+		<span class='rdetail_value'>[% args.summary | html %] </span>
+	[% END %]
 [%- END %]
 <br>
 [%- IF attrs.format_label %]

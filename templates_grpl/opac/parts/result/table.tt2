@@ -71,7 +71,9 @@
                                                                     mkurl(ctx.opac_root _ '/results', {qtype => 'author', query => authorquery}, ['page'])
                                                                     -%]">[% attrs.author | html %]</a></em>
                                                         &nbsp;&nbsp;
-                                                        [% attrs.pubdate | html %]
+-							[% IF rec.source != 6 %]
+-                                                          [% attrs.pubdate | html %]
+-							[% END %]
                                                     </div>
                                                     <table cellpadding="0" cellspacing="0" border="0"
                                                         class="results_info_table">
@@ -142,6 +144,18 @@
                                                                 </td>
                                                             </tr>
                                                         [% END %]
+
+[% IF rec.source == 6 %] 
+	<tr name="results_cdm_note_tr">
+		<td nowrap="nowrap" valign="top">
+			<strong>[% l('Summary:') %]</strong>
+		</td>
+		<td>
+			[% args.summary.replace('Grand Rapids History & Special Collections Department', '<br>Grand Rapids History & Special Collections Department') %]
+		</td>
+	</tr>
+[% END %]
+
                                                         [% FOR uri IN args.uris %]
                                                             <tr name='bib_uri_list' class='result_table_title_cell'>
                                                                 <td valign='top'>
@@ -153,6 +167,8 @@
                 [%- archMat = 1 %]
           [% ELSIF (uri.href.match('overdrive')) %]
                 <a href="[% uri.href %]">Download From Overdrive</a>
+          [% ELSIF (uri.href.match('contentdm')) %]
+                <a href="[% uri.href %]">Click for Archive Photograph</a>
           [% ELSE %]
                 <a href="[% uri.href %]">Click for Online Resource</a>
         [% END %]
