@@ -122,5 +122,8 @@
     </form>
 <br/>
 Placing a hold using an alternate hold name is now available. Please see staff or call 616.988.5400. <br/>
+<div style='margin-left: 650px;'>
+	[% INCLUDE "opac/parts/txt_a_brarian.tt2" %]	
+</div>
 </div>
 

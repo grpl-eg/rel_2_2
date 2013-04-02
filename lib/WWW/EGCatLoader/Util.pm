@@ -260,7 +260,19 @@ sub get_records_and_facets {
             } else {
                 $logger->warn("Missing 901 subfield 'c' in " . $xml->toString());
             }
-            push(@data, {id => $bre_id, marc_xml => $xml});
+
+            # GRPL hack for bib source in 901s
+            my $bre_source;
+            my $bre_source_nodes =  $xml->find('*[@tag="902"]/*[@code="s"]');
+            if ($bre_source_nodes) {
+                $bre_source =  $bre_source_nodes->[0]->textContent;
+            } else {
+                $logger->warn("Missing 902 subfield 's' in " . $xml->toString());
+            }
+
+
+            push(@data, {id => $bre_id, marc_xml => $xml, source => $bre_source});
+
             $outer_self->timelog("get_records_and_facets(): end of success handler");
         }
     );
@@ -542,6 +554,26 @@ sub load_search_filter_groups {
     }
 
     return $self->ctx->{search_filter_groups} = \%seen;
+}
+
+sub check_for_temp_list_warning {
+    my $self = shift;
+    my $ctx = $self->ctx;
+    my $cgi = $self->cgi;
+
+    my $lib = $self->_get_search_lib;
+    my $warn = ($ctx->{get_org_setting}->($lib || 1, 'opac.patron.temporary_list_warn')) ? 1 : 0;
+
+    if ($warn && $ctx->{user}) {
+        $self->_load_user_with_prefs;
+        my $map = $ctx->{user_setting_map};
+        $warn = 0 if ($$map{'opac.temporary_list_no_warn'});
+    }
+
+    # Check for a cookie disabling the warning.
+    $warn = 0 if ($warn && $cgi->cookie('no_temp_list_warn'));
+
+    return $warn;
 }
 
 

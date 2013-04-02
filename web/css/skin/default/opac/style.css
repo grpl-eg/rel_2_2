@@ -52,9 +52,9 @@ img {
 	padding-left: 30px;
 }
 
-a {
-	color: #06357a;
-}
+a { color: #06357a; }
+a:hover { color: #5BB1C1; text-decoration:underline;}
+
 
 #search-wrapper input[type=text] {
 	margin:0;
