@@ -65,7 +65,7 @@
 
     /* Set focus, and place the cursor at the end of the input string */
     dojo.addOnLoad(function() {
-        dijit.byId('search_box').focus();
+//        dijit.byId('search_box').focus();
 
         var sb_value = dijit.byId('search_box').value;
         /* Dojo won't trigger a change if the value doesn't change */

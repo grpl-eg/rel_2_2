@@ -13,6 +13,7 @@
         <span> | </span>
         <a href='http://elibrary.mel.org/search' target='_blank' >Search MeLCat</a>
 </div>
+[%- IF NOT ctx.is_staff %]
 <div id=footer-branches>
 <table cellpadding=15>
 <tr><td colspan=5><br><img src="http://www.grpl.org/wp-content/uploads/2012/05/8urban.png" alt="8 Urban Locations" title="8 Urban Locations"></td></tr>
@@ -117,3 +118,4 @@ Sat 10:00 AM - 6:00 PM<br>
 
 </div>
 </div>
+[% END %]

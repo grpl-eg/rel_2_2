@@ -98,7 +98,7 @@ h1, h2, h3, h4, h5, h6, .post .title, #slide-nav li a span.info .title, .widget 
 
 		<div id="navigation" class="col-right">
 
-			<ul id="main-nav" class="nav fl"><li id="menu-item-20" style="a: black;"><a href="http://www.grpl.org/about/"><br/>About</a>
+			<ul id="main-nav" class="nav fl"><li id="menu-item-20" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-20"><a href="http://www.grpl.org/about/"><br/>About</a>
 <ul class="sub-menu">
 	<li id="menu-item-74" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-74"><a href="http://www.grpl.org/about/using-the-library/">Using the Library</a>
 	<ul class="sub-menu">
@@ -117,39 +117,48 @@ h1, h2, h3, h4, h5, h6, .post .title, #slide-nav li a span.info .title, .widget 
 		<li id="menu-item-120" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-120"><a href="http://www.grpl.org/about/about-grpl/annual-report/">Reports to the Community</a></li>
 		<li id="menu-item-122" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-122"><a href="http://www.grpl.org/about/about-grpl/history-of-the-library/">History of the Library</a></li>
 		<li id="menu-item-18291" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-18291"><a href="http://www.grpl.org/about/about-grpl/community-partners/">Community Partners</a></li>
+		<li id="menu-item-26274" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-26274"><a href="http://www.grpl.org/about/about-grpl/annualreport/">Annual Report</a></li>
 	</ul>
 </li>
 	<li id="menu-item-129" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-129"><a href="http://www.grpl.org/about/contact-us/">Contact Us</a></li>
 	<li id="menu-item-139" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-139"><a href="http://www.grpl.org/about/hours-and-locations/">Hours and Locations</a></li>
 	<li id="menu-item-144" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-144"><a href="http://www.grpl.org/about/get-involved/">Get Involved</a>
 	<ul class="sub-menu">
-		<li id="menu-item-140" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-140"><a href="http://www.grpl.org/about/get-involved/employment/">Employment</a></li>
 		<li id="menu-item-18305" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-18305"><a href="http://www.grpl.org/about/get-involved/be-a-friend/">Be a Friend</a></li>
 		<li id="menu-item-143" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-143"><a href="http://www.grpl.org/about/get-involved/donate/">Donate</a></li>
 		<li id="menu-item-142" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-142"><a href="http://www.grpl.org/about/get-involved/intern/">Intern</a></li>
 		<li id="menu-item-141" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-141"><a href="http://www.grpl.org/about/get-involved/volunteer/">Volunteer</a></li>
 	</ul>
 </li>
+	<li id="menu-item-140" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-140"><a href="http://www.grpl.org/about/get-involved/employment/">Jobs</a></li>
 </ul>
 </li>
 <li id="menu-item-18649" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-18649"><a href="http://www.grpl.org/research/"><br/>Research</a>
 <ul class="sub-menu">
-	<li id="menu-item-19091" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-19091"><a href="http://www.grpl.org/history/">Grand Rapids History and Special Collections</a>
+	<li id="menu-item-19091" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-19091"><a href="/history/">Grand Rapids History and Special Collections</a>
 	<ul class="sub-menu">
-		<li id="menu-item-657" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-657"><a href="http://grplpedia.grpl.org/wiki/index.php/Archives_%26_Photos">Archives &#038; Photos</a></li>
-		<li id="menu-item-658" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-658"><a href="http://grplpedia.grpl.org/wiki/index.php/Furniture_Design">Furniture Collection</a></li>
-		<li id="menu-item-659" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-659"><a href="http://grplpedia.grpl.org/wiki/index.php/Genealogy">Genealogy</a></li>
 		<li id="menu-item-660" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-660"><a href="http://grplpedia.grpl.org/wiki/index.php/Local_History">Local History</a></li>
+		<li id="menu-item-657" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-657"><a href="http://grplpedia.grpl.org/wiki/index.php/Archives_%26_Photos">Archives &#038; Photos</a></li>
+		<li id="menu-item-659" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-659"><a href="http://grplpedia.grpl.org/wiki/index.php/Genealogy">Genealogy</a></li>
+		<li id="menu-item-658" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-658"><a href="http://grplpedia.grpl.org/wiki/index.php/Furniture_Design">Furniture Collection</a></li>
 	</ul>
 </li>
-	<li id="menu-item-18242" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-18242"><a href="http://www.grpl.org/cgi-bin/databases.pl">Research Databases</a></li>
-	<li id="menu-item-428" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-428"><a href="http://www.grpl.org/?p=409">Small Business Resource Center</a></li>
+	<li id="menu-item-18242" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-18242"><a href="/cgi-bin/databases.pl">Research Databases</a></li>
+	<li id="menu-item-428" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-428"><a href="/?p=409">Small Business Resource Center</a></li>
 	<li id="menu-item-19093" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-19093"><a href="http://grplpedia.grpl.org/wiki/index.php/Federal_Government">Government Documents</a></li>
+	<li id="menu-item-22015" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-22015"><a href="http://grplpedia.grpl.org/wiki/index.php/Main_Page">GRPLpedia</a></li>
 </ul>
 </li>
-<li id="menu-item-18516" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-18516"><a href="http://overdrive.grpl.org">Download<br />eBooks</a></li>
-<li id="menu-item-18514" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-18514"><a href="/">Search <br />Catalog</a></li>
-<li id="menu-item-50" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-50"><a href="/eg/opac/myopac/main"><br/>My Account</a></li>
+<li id="menu-item-25910" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-25910"><a href="http://www.grpl.org/download/">eBooks &#038;<br />Downloads</a>
+<ul class="sub-menu">
+	<li id="menu-item-18516" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-18516"><a href="http://overdrive.grpl.org">Download eBooks &#038; eAudiobooks</a></li>
+	<li id="menu-item-25955" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-25955"><a href="https://www.rbdigital.com/grandrapidsmi/zinio">Download Magazines</a></li>
+	<li id="menu-item-25912" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-25912"><a href="http://ezproxy.grpl.org/login?url=http://www.tumblebooks.com/library/auto_login.asp?U=grandrapids&amp;P=libra">Online Picture Books</a></li>
+	<li id="menu-item-25911" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-25911"><a href="http://ezproxy.grpl.org/login?url=http://infotrac.galegroup.com/itweb/lom_grpl?db=GVRL">Virtual Reference Books</a></li>
+</ul>
+</li>
+<li id="menu-item-18514" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-18514"><a href="http://catalog.grpl.org">Search <br />Catalog</a></li>
+<li id="menu-item-50" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-50"><a href="https://catalog.grpl.org/myaccount"><br/>My Account</a></li>
 </ul>		</div><!-- /#navigation -->
 
 	</div><!-- /#header -->

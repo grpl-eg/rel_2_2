@@ -59,6 +59,12 @@
         END;
         args.pubdate = (args.pubdates.size) ? args.pubdates.0 : '';
 
+        args.note = [];
+        FOR sub IN xml.findnodes('//*[@tag="500"]/*[@code="a"]');
+            args.note.push(sub.textContent);
+        END;
+        args.note = (args.note.size) ? args.note.0 : '';
+
         args.summaries = [];
         FOR sub IN xml.findnodes('//*[@tag="520"]/*[@code="a"]');
             args.summaries.push(sub.textContent);

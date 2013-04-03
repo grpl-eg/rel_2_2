@@ -83,31 +83,6 @@
             </div>
 
         </div>
-
-<div id="sink" style="float:right;" class='hide_me'>
-<center>
-<script>
-
-function ink_reg(){
-  dojo.byId("btn_img").src="/opac/images/throbber.gif";
-  var id = [% ctx.user.id %];
-  dojo.xhrGet({
-    url: "/cgi-bin/utils/public/sink_reg.cgi?id=" + id,
-    load: function(result) { alert(result); },
-    preventCache: true
-  });
-  dojo.byId("btn_img").src="/opac/images/ink.png";
-  dojo.byId("sink_btn").disabled=true;
-}
-
-</script>
-
-<button id="sink_btn" onclick="ink_reg();"><img id="btn_img" src='/opac/images/ink.png'/></button>
-<br/><br/>
-<a href="http://www.grpl.org/spilledink/">Spilled Ink 2012</a>
-</center>
-</div>
-
     </div>
     <div class="clear-both"></div>
 

@@ -28,9 +28,7 @@
 </script>
 
         [% content %] 
-        [%- IF NOT ctx.is_staff %]
-            [% INCLUDE 'opac/parts/footer.tt2' %]
-	[%- END %]
+        [% INCLUDE 'opac/parts/footer.tt2' %]
         [% INCLUDE 'opac/parts/js.tt2' %]
     </body>
 </html>

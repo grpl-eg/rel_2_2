@@ -38,6 +38,10 @@
                     </blockquote>
                     [% END %]
                 </p>
+<div style='margin-left: 650px;'>
+        [% INCLUDE "opac/parts/txt_a_brarian.tt2" %]
+</div>
+
             </div>
             <div class="common-full-pad"></div>
         </div>
