@@ -180,7 +180,8 @@ IF num_uris > 0;
 [%- IF args.summary %]
         <strong class='rdetail_label'>[% l("Summary:") %]</strong>
 	[% IF ctx.bre_source == 6 %]
-		[% args.summary.replace('Grand Rapids History & Special Collections Department', '<br>Grand Rapids History & Special Collections Department<br>') %]
+                [% args.summary.replace('Grand Rapids History & Special Collections Department', '<br>Grand Rapids History & Special Collections Department<br>').replace(':','') %]
+                [% args.note %]
 	[% ELSE %]
 		<span class='rdetail_value'>[% args.summary | html %] </span>
 	[% END %]

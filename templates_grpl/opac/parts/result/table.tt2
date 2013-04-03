@@ -151,7 +151,8 @@
 			<strong>[% l('Summary:') %]</strong>
 		</td>
 		<td>
-			[% args.summary.replace('Grand Rapids History & Special Collections Department', '<br>Grand Rapids History & Special Collections Department') %]
+                        [% args.summary.replace('Grand Rapids History & Special Collections Department', '<br>Grand Rapids History & Special Collections Department<br>').replace(':','') %]
+                        [% args.note | html %]
 		</td>
 	</tr>
 [% END %]
