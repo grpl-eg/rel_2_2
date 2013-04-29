@@ -28,7 +28,7 @@ sub prepare_extended_user_info {
         {
             flesh => 1,
             flesh_fields => {
-                au => [qw/card home_ou addresses ident_type billing_address/, @extra_flesh]
+                au => [qw/card home_ou addresses ident_type billing_address standing_penalties/, @extra_flesh]
                 # ...
             }
         }
@@ -2202,6 +2202,33 @@ sub load_myopac_circ_history_export {
 
     return $self->set_file_download_headers($filename);
 }
+
+sub load_myopac_confirm_lost_card {
+
+   my $self = shift;
+   my $e = $self->editor;
+   $e->xact_begin;
+   my $ctx = $self->ctx;
+
+   my $usr = $self->ctx->{user}->id;
+
+   my $usr_penalty = new Fieldmapper::actor::user_standing_penalty;
+   $usr_penalty->usr($usr);
+   $usr_penalty->org_unit(9);
+   $usr_penalty->standing_penalty(113);
+   $usr_penalty->staff(31909);
+   $usr_penalty->note('Card reported lost via OPAC');
+
+   $e->create_actor_user_standing_penalty($usr_penalty) or
+         return $e->die_event;
+   $e->commit;
+
+
+   return Apache2::Const::OK;
+
+}
+
+
 
 sub load_password_reset {
     my $self = shift;

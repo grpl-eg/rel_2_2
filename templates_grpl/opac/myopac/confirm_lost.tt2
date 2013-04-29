@@ -1,0 +1,11 @@
+[%  PROCESS "opac/parts/header.tt2";
+    PROCESS "opac/parts/misc_util.tt2";
+    WRAPPER "opac/parts/myopac/base.tt2";
+    myopac_page = "confirm_lost"  %]
+
+
+<ul>
+<b>Your card has been blocked from use.  You will need to visit a customer service desk to receive a replacement.</b>
+</ul>
+
+[% END %]
