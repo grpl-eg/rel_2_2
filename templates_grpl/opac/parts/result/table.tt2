@@ -162,27 +162,37 @@
                                                                 <td valign='top'>
                                                                     <strong>[% l('Electronic resource') %]</strong>
                                                                 </td>
-<td>
-        [%- IF uri.note == 'Finding aid online:' %]
-                <a href="[% uri.href %]">Archival [% uri.note %]</a>
-                [%- archMat = 1 %]
-          [% ELSIF (uri.href.match('overdrive')) %]
-                <a href="[% uri.href %]">Download From Overdrive</a>
-          [% ELSIF (uri.href.match('contentdm')) %]
-                <a href="[% uri.href %]">Click for Archive Photograph</a>
-          [% ELSE %]
-                <a href="[% uri.href %]">Click for Online Resource</a>
-        [% END %]
-      <img src=/images/format_icons/item_type/ebook.png />
-</td>
-<!--                                                                <td><a href="[% uri.href %]">[% uri.link | html %]</a>[% ' - ' _ uri.note | html IF uri.note %]</td>
--->
+                                                                <td>
+                                                                        [%- IF uri.note == 'Finding aid online:' %]
+                                                                                <a href="[% uri.href %]">Archival [% uri.note %]</a>
+                                                                                [%- archMat = 1 %]
+                                                                          [% ELSIF (uri.href.match('overdrive')) %]
+                                                                                <a href="[% uri.href %]">Download From Overdrive</a>
+                                                                          [% ELSIF (uri.href.match('contentdm')) %]
+                                                                                <a href="[% uri.href %]">Click for Archive Photograph</a>
+                                                                          [% ELSE %]
+                                                                                <a href="[% uri.href %]">Click for Online Resource</a>
+                                                                          [% END %]
+                                                                        [% IF attrs.copy_counts.0.count == 0 %]
+                                                                          [%- PERL %]
+                                                                                my $phy = $stash->get('attrs.phys_desc');
+                                                                                if ( ($phy =~ /sound/) ){
+                                                                                        $stash->set('audiobook',1);
+                                                                                }
+                                                                          [%- END %]
+                                                                          [% IF audiobook %]
+                                                                                <img src=/images/format_icons/item_type/eaudio.png />
+                                                                          [% ELSE %]
+                                                                                <img src=/images/format_icons/item_type/ebook.png />
+                                                                          [% END %]
+                                                                        [% END %]
+                                                                </td>
                                                             </tr>
                                                         [% END %]
-[% IF args.holdings.size == 0 %]
+[% IF attrs.copy_counts.0.count == 0 %]
 </table>
 [% END %]
-                                                            [%- IF args.holdings.size > 0;
+                                                            [%- IF args.holdings.size > 0 OR attrs.copy_counts.0.count > 0;
                                                                  FOREACH copy IN args.holdings;
                                                                     IF copy.part_label != '';
                                                                         has_parts = 'true';
@@ -217,6 +227,7 @@
                                                                 alt=""/><span class="">[% l(' Place Hold') %]</span></a>
                                                         </div>
                                                         <div class="">
+							 <br/>
                                                             [%  IF ctx.user;
                                                                 dsetting = "opac.default_list";
                                                                 tclass = (ctx.user_setting_map.$dsetting) ? "temporary" :
@@ -285,6 +296,7 @@
                                                                         {record => rec.id, anchor => 'record_' _ rec.id}, 1);
                                                             %]      
                                                             <a href="[% href %]" class="no-dec">
+								<img class='hide_me' src="[% ctx.media_prefix %]/images/clipboard.png" alt="" />
                                                                 [% label %]
                                                             </a>
                                                             [% END %]
@@ -331,6 +343,22 @@
 								   [% count=count+1 %]
 								  [% END %]
                                                                 [% END %]
+[% FOREACH peer IN ctx.foreign_copies %]
+[% FOREACH bib IN  peer.0.foreign_copy_maps %]
+[% IF bib.peer_record == rec.id %]
+    <tr style='color:black;'>
+     <td>
+        [% ctx.get_aou(bib.target_copy.circ_lib).name %]
+    </td><td>
+        [% bib.target_copy.location.name %]
+    </td><td>
+        <a href="[% mkurl(ctx.opac_root _ '/record/' _ bib.target_copy.call_number.record) %]">[% bib.target_copy.call_number.label %]</a>
+    </td><td>
+        [% bib.target_copy.status.name %]
+    </td></tr>
+[% END %]
+[% END %]
+[% END %]
                                                                         </tbody>
                                                                     </table>
                                                                 </td>
