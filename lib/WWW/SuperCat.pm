@@ -1028,6 +1028,9 @@ sub bookbag_feed {
     $feed->root($root);
     $feed->id($bucket_tag);
 
+   ## GRPL: custom bookbag feed
+    $feed->{xsl} = "/GRPLBookbag.xsl";
+
     $feed->title("Items in Book Bag [".$bucket->name."]");
     $feed->description($bucket->description || ("Items in Book Bag [".$bucket->name."]"));
     $feed->creator($host);

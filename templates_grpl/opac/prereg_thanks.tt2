@@ -1,0 +1,26 @@
+[%  PROCESS "opac/parts/header.tt2";
+    PROCESS "opac/parts/misc_util.tt2";
+    WRAPPER "opac/parts/base.tt2";
+    INCLUDE "opac/parts/topnav.tt2";
+    ctx.page_title = l("Patron Pre-Registration") %]
+
+
+    <div id="search-wrapper">
+        [% INCLUDE "opac/parts/searchbar.tt2" %]
+    </div>
+    <div id="content-wrapper">
+        <div id="main-content">
+
+    <div class="header_middle" style='padding: 10px;'>
+        <span style="float:left;">[% l("Pre-Register for a library card") %]</span>
+    </div>
+    <div class="clear-both"></div>
+
+	<p><br>Thank you.<br>When visiting a library branch, please remember to bring your photo ID and let staff know that you've already pre-registered.</p>
+
+
+            <div class="common-full-pad"></div>	
+        </div>
+    </div>
+[% END %]
+

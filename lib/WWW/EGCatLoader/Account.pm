@@ -1827,6 +1827,8 @@ sub load_myopac_bookbags {
                 }
             }
 
+	    $e->rollback;
+
             my $query = $self->_prepare_bookbag_container_query(
                 $bookbag->id, $sorter, $modifier
             );

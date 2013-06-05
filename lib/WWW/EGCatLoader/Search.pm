@@ -29,8 +29,8 @@ sub _prepare_biblio_search_basics {
         # the weird things Real Users will surely type in.
         $contains = "" unless defined $contains; # silence warning
         if ($contains eq 'nocontains') {
-            $query =~ s/"//g;
-            $query = ('"' . $query . '"') if index $query, ' ';
+        #    $query =~ s/"//g;
+        #    $query = ('"' . $query . '"') if index $query, ' ';
             $query = '-' . $query;
         } elsif ($contains eq 'phrase') {
             $query =~ s/"//g;
@@ -189,6 +189,22 @@ sub _get_search_limit {
 
     return 10; # default
 }
+
+sub _get_expand_pref {
+    my $self = shift;
+
+    if($self->editor->requestor) {
+        $self->timelog("Checking for opac.expand_details preference");
+        # See if the user has a hit count preference
+        my $lset = $self->editor->search_actor_user_setting({
+            usr => $self->editor->requestor->id,
+            name => 'opac.expand_details'
+        })->[0];
+        $self->timelog("Got opac.expand_details preference");
+        return OpenSRF::Utils::JSON->JSON2perl($lset->value) if $lset;
+    }
+}
+
 
 sub tag_circed_items {
     my $self = shift;
@@ -391,6 +407,8 @@ sub load_rresults {
         # Stuff these into the TT context so that templates can use them in redrawing forms
         $ctx->{processed_search_query} = $query;
 
+	$ctx->{expand_details} = $self->_get_expand_pref;
+
         $query .= " $_" for @facets;
 
         $logger->activity("EGWeb: [search] $query");
@@ -447,15 +465,15 @@ sub load_rresults {
         return $stat if $stat;
     }
 
-    # load temporary_list settings for user and ou:
-    $self->_load_lists_and_settings if ($ctx->{user});
-
     # shove recs into context in search results order
     for my $rec_id (@$rec_ids) {
         push(
             @{$ctx->{records}},
             grep { $_->{id} == $rec_id } @data
         );
+        my $peer_rec = $U->simplereq( 'open-ils.search', 'open-ils.search.peer_bibs', $rec_id );
+        push(@{$ctx->{foreign_copies}}, $peer_rec);
+
     }
 
     if ($tag_circs) {

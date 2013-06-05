@@ -49,12 +49,6 @@ sub load_record {
     $self->fetch_related_search_info($rec_id);
     $self->timelog("past related search info");
 
-    # Check for user and load lists and prefs
-    if ($self->ctx->{user}) {
-        $self->_load_lists_and_settings;
-        $self->timelog("load user lists and settings");
-    }
-
     # run copy retrieval in parallel to bib retrieval
     # XXX unapi
     my $cstore = OpenSRF::AppSession->create('open-ils.cstore');
@@ -73,9 +67,42 @@ sub load_record {
     $self->timelog("past get_records_and_facets()");
     $ctx->{bre_id} = $rec_data[0]->{id};
     $ctx->{marc_xml} = $rec_data[0]->{marc_xml};
-    $ctx->{bre_source} = $rec_data[0]->{source};
+    $ctx->{bre_source} = $rec_data[0]->{source}; # GRPL hack for bib source
+
+    my $peer_rec = $U->simplereq(
+        'open-ils.search',
+        'open-ils.search.peer_bibs', $rec_id );
+
+    $ctx->{foreign_copies} = $peer_rec;
 
     $ctx->{copies} = $copy_rec->gather(1);
+
+    # Add public copy notes to each copy
+    foreach my $copy (@{$ctx->{copies}}) {
+        $copy->{notes} = $U->simplereq(
+            'open-ils.circ',
+            'open-ils.circ.copy_note.retrieve.all',
+            {itemid => $copy->{id}, pub => 1 }
+        );
+        $copy->{peer_bibs} = $U->simplereq(
+            'open-ils.search',
+            'open-ils.search.multi_home.bib_ids.by_barcode',
+            $copy->{barcode} );
+        my @peer_marc;
+        foreach my $bib (@{$copy->{peer_bibs}}) {
+                my (undef, @peer_data) = $self->get_records_and_facets(
+                        [$bib], undef, {
+                                flesh => '{holdings_xml,acp,acnp,acns,exclude_invisible_acn}',
+                                site => $org_name,
+                                depth => $depth,
+                                pref_lib => $pref_ou
+                });
+                #$copy->{peer_bib_marc} = $peer_data[0]->{marc_xml};
+                push @peer_marc,$peer_data[0]->{marc_xml};
+        }
+        $copy->{peer_bib_marc} = \@peer_marc;
+    }
+
     $self->timelog("past store copy retrieval call");
     $ctx->{copy_limit} = $copy_limit;
     $ctx->{copy_offset} = $copy_offset;

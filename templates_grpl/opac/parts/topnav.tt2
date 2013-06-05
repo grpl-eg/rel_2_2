@@ -135,7 +135,7 @@ h1, h2, h3, h4, h5, h6, .post .title, #slide-nav li a span.info .title, .widget 
 </li>
 <li id="menu-item-18649" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-18649"><a href="http://www.grpl.org/research/"><br/>Research</a>
 <ul class="sub-menu">
-	<li id="menu-item-19091" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-19091"><a href="/history/">Grand Rapids History and Special Collections</a>
+	<li id="menu-item-19091" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-19091"><a href="http://www.grpl.org/history/">Grand Rapids History and Special Collections</a>
 	<ul class="sub-menu">
 		<li id="menu-item-660" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-660"><a href="http://grplpedia.grpl.org/wiki/index.php/Local_History">Local History</a></li>
 		<li id="menu-item-657" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-657"><a href="http://grplpedia.grpl.org/wiki/index.php/Archives_%26_Photos">Archives &#038; Photos</a></li>
@@ -143,8 +143,8 @@ h1, h2, h3, h4, h5, h6, .post .title, #slide-nav li a span.info .title, .widget 
 		<li id="menu-item-658" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-658"><a href="http://grplpedia.grpl.org/wiki/index.php/Furniture_Design">Furniture Collection</a></li>
 	</ul>
 </li>
-	<li id="menu-item-18242" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-18242"><a href="/cgi-bin/databases.pl">Research Databases</a></li>
-	<li id="menu-item-428" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-428"><a href="/?p=409">Small Business Resource Center</a></li>
+	<li id="menu-item-18242" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-18242"><a href="http://www.grpl.org/cgi-bin/databases.pl">Research Databases</a></li>
+	<li id="menu-item-428" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-428"><a href="http://www.grpl.org/?p=409">Small Business Resource Center</a></li>
 	<li id="menu-item-19093" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-19093"><a href="http://grplpedia.grpl.org/wiki/index.php/Federal_Government">Government Documents</a></li>
 	<li id="menu-item-22015" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-22015"><a href="http://grplpedia.grpl.org/wiki/index.php/Main_Page">GRPLpedia</a></li>
 </ul>

@@ -136,6 +136,8 @@ sub load {
     return $self->redirect_ssl unless $self->cgi->https;
     return $self->load_password_reset if $path =~ m|opac/password_reset|;
     return $self->load_logout if $path =~ m|opac/logout|;
+   
+    return $self->load_prereg if $path =~ m|opac/prereg|;
 
     if($path =~ m|opac/login|) {
         return $self->load_login unless $self->editor->requestor; # already logged in?
@@ -412,6 +414,70 @@ sub load_logout {
         )
     );
 }
+
+sub load_prereg {
+    my $self = shift;
+    my $e = $self->editor;
+
+    my $conf = OpenSRF::Utils::SettingsClient->new();
+    my $idl = $conf->config_value("IDL");
+    Fieldmapper->import(IDL => $idl);
+
+    return Apache2::Const::OK
+        unless $self->cgi->request_method eq 'POST';
+
+    my $last = uc($self->cgi->param('last')) || '';
+    my $first = uc($self->cgi->param('first')) || '';
+    my $middle = uc($self->cgi->param('middle')) || '';
+    my $email = lc($self->cgi->param('email')) || '';
+    my $street = uc($self->cgi->param('street')) || '';
+    my $zip = $self->cgi->param('zip');
+    my $ident_type = $self->cgi->param('ident_type') || '';
+    my $ident_value = $self->cgi->param('ident_value') || '';
+    my $dob = $self->cgi->param('year').'-'.$self->cgi->param('month').'-'.$self->cgi->param('day');
+    my $day_phone = $self->cgi->param('day_phone');
+    my $evening_phone = $self->cgi->param('evening_phone');
+    my $city = uc($self->cgi->param('city'));
+    my $state= uc($self->cgi->param('state'));
+    my $pass = substr $day_phone,-4;
+
+    my $usr = Fieldmapper::staging::user_stage->new;
+    $usr->isnew(1);
+    $usr->profile(46);
+    $usr->email($email);
+    $usr->ident_type($ident_type);
+    $usr->ident_value($ident_value);
+    $usr->first_given_name($first);
+    $usr->second_given_name($middle);
+    $usr->family_name($last);
+    $usr->day_phone($day_phone);
+    $usr->evening_phone($evening_phone);
+    $usr->home_ou(10);
+    $usr->dob($dob);
+    $usr->passwd($pass);
+ 
+    my $addr = Fieldmapper::staging::mailing_address_stage->new;
+    $addr->isnew(1);
+    $addr->street1($street);
+    $addr->city($city);
+    $addr->state($state);
+    $addr->post_code($zip);
+
+   my $evt = $U->simplereq(
+            'open-ils.actor',
+            'open-ils.actor.user.stage.create',
+            $usr, $addr, $addr);
+
+    unless ($self->cgi->param("redirect_to")) {
+        my $url = $self->apache->unparsed_uri;
+        $url =~ s/prereg/prereg_thanks/;
+
+        return $self->generic_redirect($url);
+    }
+
+    return $self->generic_redirect;
+}
+
 
 1;
 

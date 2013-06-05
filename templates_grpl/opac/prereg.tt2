@@ -1,0 +1,85 @@
+[%  PROCESS "opac/parts/header.tt2";
+    PROCESS "opac/parts/misc_util.tt2";
+    WRAPPER "opac/parts/base.tt2";
+    INCLUDE "opac/parts/topnav.tt2";
+    ctx.page_title = l("Patron Pre-Registration") %]
+
+<style type="text/css">
+            @import "[% ctx.media_prefix %]/js/dojo/dojo/resources/dojo.css";
+            @import "[% ctx.media_prefix %]/js/dojo/dijit/themes/tundra/tundra.css";
+</style>
+<script type='text/javascript'>
+
+function stopRKey(evt) {
+  var evt = (evt) ? evt : ((event) ? event : null);
+  var node = (evt.target) ? evt.target : ((evt.srcElement) ? evt.srcElement : null);
+  if ((evt.keyCode == 13) && (node.type=="text"))  {return false;}
+}
+
+document.onkeypress = stopRKey; 
+
+function validate_form(){
+  var f = dojo.byId('first').value;
+  var l = dojo.byId('last').value;
+  var s = dojo.byId('street').value;
+  var z = dojo.byId('zip').value;
+ 
+  if(!f || !l || !s || !z ){
+    alert("Please complete required fields");
+    return false;
+  }
+  return true;
+}
+
+function formatPhone(obj) {
+    var numbers = obj.value.replace(/\D/g, ''),
+        char = {3:'-',6:'-'};
+    obj.value = '';
+    for (var i = 0; i < numbers.length; i++) {
+        obj.value += (char[i]||'') + numbers[i];
+    }
+}
+
+</script>
+
+
+    <div id="search-wrapper">
+        [% INCLUDE "opac/parts/searchbar.tt2" %]
+    </div>
+    <div id="content-wrapper">
+        <div id="main-content">
+
+    <div class="header_middle" style='padding: 10px;'>
+        <span style="float:left;">[% l("Pre-Register for a library card") %]</span>
+    </div>
+    <div class="clear-both"></div>
+
+	<p> Please complete all information below.<br>To receive your card you must visit a library building, present the noted identification and sign for your card.<br>&nbsp;</p>
+
+<div style='padding-left: 20px;'>
+<form method='POST' id='prereg_form' onsubmit="return validate_form();">
+    <table>
+        <tr><td>[% l('First Name') %]</td><td><input type='text' id='first' name='first' size='30'/></td></tr>
+        <tr><td>[% l('Middle Name') %]</td><td><input type='text' id='middle' name='middle' size='30'/></td></tr>
+        <tr><td>[% l('Last Name') %]</td><td><input type='text' id='last' name='last' size='30'/></td></tr>
+        <tr><td>[% l('Street') %]</td><td><input type='text' id='street' name='street' size='30'/></td></tr>
+	<tr><td>[% l('City') %]</td><td><input type='text' name='city' value='Grand Rapids' size='30'/></td></tr>
+        <tr><td>[% l('State') %]</td><td><input type='text' name='state' value='MI' size='30'/></td></tr>
+        <tr><td>[% l('Zip') %]</td><td><input type='text' id='zip' name='zip' size='30'/></td></tr>
+        <tr><td>[% l('Birthdate') %]</td><td><select name=month><option value=01>Jan<option value=02>Feb<option value=03>Mar<option value=04>Apr<option value=05>May<option value=06>Jun<option value=07>Jul<option value=08>Aug<option value=09>Sep<option value=10>Oct<option value=11>Nov<option value=12>Dec</select><select name=day><option>01<option>02<option>03<option>04<option>05<option>06<option>07<option>08<option>09<option>10<option>11<option>12<option>13<option>14<option>15<option>16<option>17<option>18<option>19<option>20<option>21<option>22<option>23<option>24<option>25<option>26<option>27<option>28<option>29<option>30<option>31</select><select name=year>[% years = [1900..2013] %] [% FOREACH y IN years %]<option>[% y %][% END %]</select> </td></tr>
+        <tr><td>[% l('Your Email')%]</td><td><input type='text' name='email' size='30'/></td></tr>
+	<tr><td>[% l('Day Phone') %]</td><td><input type='text' name='day_phone' size='30' onblur="formatPhone(this);"/></td></tr>
+	<tr><td>[% l('Evening Phone') %]</td><td><input type='text' name='evening_phone' size='30' onblur="formatPhone(this);"/></td></tr>
+	<tr><td>[% l('Identification Type') %]</td><td><select name='ident_type'><option value=1>Driver License<option value=4>State ID card<option value=3>Other</select></td></tr>
+	<tr><td>[% l('Identification Number') %]</td><td><input type=text name='ident_value' size='30'/></td></tr>
+        <tr><td colspan='2' align='right'><input value="[% l('Submit') %]" type='submit'/></td></tr>
+    </table>
+</form>
+</div>
+
+
+            <div class="common-full-pad"></div>	
+        </div>
+    </div>
+[% END %]
+
