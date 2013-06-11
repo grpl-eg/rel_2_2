@@ -48,13 +48,13 @@
         args.title_extended = titsubs_content.join(" ");
 
         args.publishers = [];
-        FOR sub IN xml.findnodes('//*[@tag="260"]/*[@code="b"]');
+        FOR sub IN xml.findnodes('//*[@tag="260" or @tag="264"]/*[@code="b"]');
             args.publishers.push(sub.textContent);
         END;
         args.publisher = (args.publishers.size) ? args.publishers.0 : '';
 
         args.pubdates = [];
-        FOR sub IN xml.findnodes('//*[@tag="260"]/*[@code="c"]');
+        FOR sub IN xml.findnodes('//*[@tag="260" or @tag="264"]/*[@code="c"]');
             args.pubdates.push(sub.textContent);
         END;
         args.pubdate = (args.pubdates.size) ? args.pubdates.0 : '';
@@ -283,6 +283,10 @@
                 args.format_icon = ctx.media_prefix _ '/images/format_icons/item_type/lp.png';
                 LAST;
             END;
+	    IF args.phys_desc.match("book reader");
+		args.format_icon = ctx.media_prefix _ '/images/format_icons/item_type/ereader.png';
+		LAST;
+	    END;
             IF node AND node.textContent;
                 type = node.textContent;
                 args.format_label = node.getAttribute('coded-value')
@@ -291,6 +295,12 @@
 		LAST;
             END;
         END;
+
+        args.bibid = [];
+        FOR bibid IN xml.findnodes('//*[@tag="901"]/*[@code="c"]');
+            args.bibid.push(bibid.textContent);
+        END;
+        args.bibid = args.bibid.0;
 
     END;
 
