@@ -1383,7 +1383,7 @@ sub load_myopac_purchase_request {
         "from" => { "aur" => {
                     "acqcr" => { 'field' => 'id', 'fkey' => 'cancel_reason', 'type' => 'left' } }
         },
-        "where"=>{ 'usr' => $e->requestor->id},
+        "where"=>{ 'usr' => $e->requestor->id, 'cancel_reason' => undef },
         "order_by"=>[{"class"=>"aur", "field"=>"request_date", "direction"=>"desc"}],
     };
 
@@ -1408,7 +1408,7 @@ sub load_myopac_purchase_request_form {
         "select" => {
                 "aur" => [{column => 'id', transform => 'count', alias => 'count'}]},
         "from" => { "aur" => {} },
-        "where" => { "request_date" => {">" => $past }, "usr" => $e->requestor->id }
+        "where" => { "request_date" => {">" => $past }, "usr" => $e->requestor->id, 'cancel_reason' => undef }
     };
 
     my $res = $e->json_query($query);
