@@ -1210,6 +1210,15 @@ sub handle_mark_damaged {
     my $new_btype = $args->{override_btype};
     my $new_note = $args->{override_note};
 
+       # End transit, even though we may not be at the dest
+        my $transit = $e->search_action_transit_copy(
+        { target_copy => $copy->id, dest_recv_time => undef } )->[0];
+        if ($transit) {
+                $transit->dest_recv_time('now');
+                $e->update_action_transit_copy($transit);
+        }
+
+
     # grab the last circulation
     my $circ = $e->search_action_circulation([
         {   target_copy => $copy->id}, 
