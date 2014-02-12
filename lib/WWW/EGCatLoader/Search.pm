@@ -578,7 +578,7 @@ sub item_barcode_shortcut {
 
         $self->timelog("Calling get_records_and_facets() for item_barcode");
         my ($facets, @data) = $self->get_records_and_facets(
-            $rec_ids, undef, {flesh => "{holdings_xml,mra,acnp,acns,bmp}"}
+            $rec_ids, undef, {flesh => "{holdings_xml,acp,mra,acnp,acns,bmp}"}
         );
         $self->timelog("Returned from calling get_records_and_facets() for item_barcode");
 
