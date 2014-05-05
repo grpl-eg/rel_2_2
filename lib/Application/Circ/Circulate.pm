@@ -539,6 +539,7 @@ my @AUTOLOAD_FIELDS = qw/
     clear_expired
     retarget_mode
     hold_as_transit
+    suppress_float
     fake_hold_dest
     limit_groups
     override_args
@@ -563,6 +564,7 @@ sub AUTOLOAD {
             my $s = shift;
             my $v = shift;
             $s->{$name} = $v if defined $v;
+	# $logger->error("doug: $name is $s->{$name}");
             return $s->{$name};
         }
     }
@@ -2607,7 +2609,7 @@ sub do_checkin {
                     " is on a remote hold's shelf, sending to $circ_lib");
             }
     
-            $logger->debug("circulator: circlib=$circ_lib, workstation=".$self->circ_lib);
+            $logger->info("circulator: circlib=$circ_lib, workstation=".$self->circ_lib);
 
             my $suppress_transit = 0;
 
@@ -2616,40 +2618,46 @@ sub do_checkin {
                 if($suppress_transit_source && $suppress_transit_source->{value}) {
                     my $suppress_transit_dest = $U->ou_ancestor_setting($circ_lib, 'circ.transit.suppress_non_hold');
                     if($suppress_transit_dest && $suppress_transit_source->{value} eq $suppress_transit_dest->{value}) {
-                        $logger->info("circulator: copy is within transit suppress group: ".$self->copy->barcode." ".$suppress_transit_source->{value});
+                        $logger->error("circulator: copy is within transit suppress group: ".$self->copy->barcode." ".$suppress_transit_source->{value});
                         $suppress_transit = 1;
                     }
                 }
             }
- 
-            if( $suppress_transit or ( $circ_lib == $self->circ_lib and not ($self->hold_as_transit and $self->remote_hold) ) ) {
+	    if( $suppress_transit or ( ($circ_lib == $self->circ_lib and $circ_lib == 10) and not ($self->hold_as_transit and $self->remote_hold) ) ) {
                 # copy is where it needs to be, either for hold or reshelving
-    
                 $self->checkin_handle_precat();
                 return if $self->bail_out;
-    
             } else {
                 # copy needs to transit "home", or stick here if it's a floating copy
-    
-               # if ($U->is_true( $self->copy->floating ) && !$self->remote_hold) { # copy is floating, stick here
-#if ($U->is_true( $self->copy->floating ) && !$self->remote_hold && ($self->circ_lib =~ /11|12|13|14|15|16|17/) ) { # copy is floating, stick here
-if ($U->is_true( $self->copy->floating ) && !$self->remote_hold && ($self->circ_lib =~ /20/) ) { # kludge to shut this down for awhile
-                    $self->checkin_changed(1);
-                    $self->copy->circ_lib( $self->circ_lib );
-                    $self->update_copy;
+if ($U->is_true( $self->copy->floating ) && !$self->remote_hold  && !$self->suppress_float && ($self->circ_lib =~ /11|12|13|14|15|16|17/) ) { # copy is floating, stick here
+		## GRPL Smart Float
+		$logger->error("SMARTFLOAT: floating checkin lib: ".$self->circ_lib." copy id: ".$self->copy->id);
+			$self->checkin_changed(1);
+		    	my $sf_dest = $self->editor->json_query({ from => ['grpl.smart_float_destination', $self->circ_lib, $self->copy->id] })->[0];
+		    	$self->copy->circ_lib( [values %$sf_dest]->[0] );
+			$self->update_copy;
+			if ($self->copy->circ_lib != $self->circ_lib) { # if transit needed
+				$self->checkin_build_copy_transit($self->copy->circ_lib);
+                    		return if $self->bail_out;
+                    		$self->push_events(OpenILS::Event->new('ROUTE_ITEM', org => $self->copy->circ_lib));
+			}
                 } else {
-                    my $bc = $self->copy->barcode;
-                    $logger->info("circulator: copy $bc at the wrong location, sending to $circ_lib");
-                    $self->checkin_build_copy_transit($circ_lib);
-                    return if $self->bail_out;
-                    $self->push_events(OpenILS::Event->new('ROUTE_ITEM', org => $circ_lib));
+                    $logger->error("SMARTFLOAT: suppress float is ".$self->suppress_float." copy ".$self->copy->id." circlib is ".$self->copy->circ_lib." float is ".$self->copy->floating." checkin lib ".$self->circ_lib);
+	 	    if ($self->copy->circ_lib != $self->circ_lib) { # if transit needed
+                    	$self->checkin_build_copy_transit($self->copy->circ_lib);
+                        return if $self->bail_out;
+                        $self->push_events(OpenILS::Event->new('ROUTE_ITEM', org => $circ_lib));
+		    }
                 }
             }
         }
     } else { # no-op checkin
-        if ($U->is_true( $self->copy->floating )) { # XXX floating items still stick where they are even with no-op checkin?
+	$logger->error("SMARTFLOAT: no-op dumb float checkin lib: ".$self->circ_lib." copy id: ".$self->copy->id);
+        if ($U->is_true( $self->copy->floating ) && $self->circ_lib != 10) { # XXX floating items still stick where they are even with no-op checkin?
             $self->checkin_changed(1);
             $self->copy->circ_lib( $self->circ_lib );
+	    #my $noop_dest = $self->editor->json_query({ from => ['grpl.smart_float_destination', $self->circ_lib, $self->copy->id] })->[0];
+	    #$self->copy->circ_lib( [values %$noop_dest]->[0] );
             $self->update_copy;
         }
     }
@@ -2668,7 +2676,6 @@ if ($U->is_true( $self->copy->floating ) && !$self->remote_hold && ($self->circ_
     return if $self->bail_out;
 
     unless($self->checkin_changed) {
-
         $self->push_events(OpenILS::Event->new('NO_CHANGE'));
         my $stat = $U->copy_status($self->copy->status)->id;
 
